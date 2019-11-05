@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text=center>Produtor Rural</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-button expand="full" (click)="createDB()"> Criar Banco de Dados</ion-button> -->
+<ion-content>
+  
+  <ion-item>
+       <ion-label position="fixed">Nome do Produtor</ion-label>
+       <ion-input [(ngModel)]="nome"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="fixed">E-mail</ion-label>
+    <ion-input [(ngModel)]="email"></ion-input>
+</ion-item>
+
+<ion-button expand="full" (click)="add()">Adicionar Produtor !</ion-button>
+
+<ion-list>
+
+    <ion-list-header>
+        <ion-label> 
+             Listagem
+        </ion-label>
+    </ion-list-header>
+  
+    <ion-item-sliding *ngFor="let item of row_data">
+      <ion-item>
+          <ion-label text-wrap>
+              <h3> Produtor : {{ item.nome }}</h3>
+                <ion-text color="secondary">
+                  <p> E-mail : {{ item.email }}</p>
+                </ion-text>
+          </ion-label>
+      </ion-item>    
+      <ion-item-options side="end">
+           <ion-item-option color="secondary" (click)="update(item)">Altera</ion-item-option>
+           <ion-item-option color="danger" (click)="delete(item)">Excluir</ion-item-option>         
+      </ion-item-options>
+    </ion-item-sliding>
+</ion-list>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "iPec",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

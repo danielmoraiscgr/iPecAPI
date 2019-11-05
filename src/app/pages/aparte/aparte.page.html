@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text=center>Cadastro de Apartes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-item>
+    <ion-label>Tipo Manejo </ion-label>
+    <ion-select name="idtipomanejo"  [(ngModel)]="id_tipomanejo"  okText="Ok" cancelText="Voltar">
+     <ion-select-option *ngFor="let tipomanejo of tipomanejos" value={{tipomanejo.id}}>{{tipomanejo.nome}}</ion-select-option>
+    </ion-select> 
+  </ion-item>
+
+<ion-item>
+<ion-label position="fixed">Nome Aparte : </ion-label>
+<ion-input [(ngModel)]="nome"></ion-input>
+</ion-item>
+
+<ion-item>
+    <ion-label position="fixed">Peso inicial : </ion-label>
+    <ion-input [(ngModel)]="pesoinicial"></ion-input>
+</ion-item>
+
+<ion-item>
+    <ion-label position="fixed">Peso final : </ion-label>
+    <ion-input [(ngModel)]="pesofinal"></ion-input>
+</ion-item>
+
+<ion-button expand="full" (click)="add()"> Salvar </ion-button>
+
+<ion-list>
+
+<ion-list-header>
+   <ion-label> 
+        Listagem
+   </ion-label>
+</ion-list-header>
+
+<ion-item-sliding *ngFor="let item of row_data">
+ <ion-item>
+     <ion-label text-wrap>
+         <h3> Tipo Manejo  : {{ item.nometipomanejo }}</h3>
+         <h3> Nome Aparte  : {{ item.nome }}</h3>
+         <h3> Peso Inicial : > = {{ item.pesoinicial }} </h3>
+         <h3> Peso Final   : < = {{ item.pesofinal }}</h3>
+          
+     </ion-label>
+ </ion-item>    
+ <ion-item-options side="end">
+      <ion-item-option color="secondary" (click)="update(item)">Alterar</ion-item-option>
+      <ion-item-option color="danger" (click)="delete(item)">Excluir</ion-item-option>         
+ </ion-item-options>
+</ion-item-sliding>
+</ion-list>
+
+</ion-content>

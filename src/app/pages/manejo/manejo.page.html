@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text=center>Cadastro de Manejo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <ion-item>
+      <ion-label>Produtor</ion-label>
+      <ion-select name="idprodutor"  [(ngModel)]="id_produtor" okText="Ok" cancelText="Voltar">
+       <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>
+      </ion-select> 
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Fazenda</ion-label>
+        <ion-select name="idfazenda"  [(ngModel)]="id_fazenda" okText="Ok" cancelText="Voltar">
+         <ion-select-option *ngFor="let fazenda of fazendas" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>
+        </ion-select> 
+      </ion-item>
+    
+      <ion-item>
+          <ion-label position="fixed">Ident. do Animal : </ion-label>
+          <ion-input [(ngModel)]="identAnimal"></ion-input>
+     </ion-item>
+   
+      <ion-item>
+          <ion-label>Categoria</ion-label>
+          <ion-select name="idcategoria"  [(ngModel)]="id_categoria" okText="Ok" cancelText="Voltar">
+           <ion-select-option *ngFor="let categoria of categorias" value={{categoria.id}}>{{categoria.nome}}</ion-select-option>
+          </ion-select> 
+        </ion-item>
+      
+      <ion-item>
+          <ion-label>Raça</ion-label>
+          <ion-select name="idraca"  [(ngModel)]="id_raca" okText="Ok" cancelText="Voltar">
+           <ion-select-option *ngFor="let raca of racas" value={{raca.id}}>{{raca.nome}}</ion-select-option>
+          </ion-select> 
+       </ion-item>
+
+       <ion-item>
+        <ion-label position="fixed">Peso (Kg) : </ion-label>
+        <ion-input [(ngModel)]="peso"></ion-input>
+   </ion-item>
+    
+  
+  <ion-button expand="full" (click)="add()"> Salvar </ion-button>
+  
+  <ion-list>
+  
+  <ion-list-header>
+     <ion-label> 
+          Listagem
+     </ion-label>
+  </ion-list-header>
+  
+  <ion-item-sliding *ngFor="let item of row_data">
+   <ion-item>
+       <ion-label text-wrap>
+           <h3> Produtor       : {{ item.nomeprodutor }}</h3>
+           <h3> Fazenda        : {{ item.nomefazenda }}</h3>
+           <h3> Ident. Animal  : {{ item.identanimal}} </h3>
+           <h3> Categoria      : {{ item.nomecategoria }}</h3>
+           <h3> Raça           : {{ item.nomeraca }}</h3>
+           <h3> Peso           : {{ item.peso }}</h3>
+           <h3> Aparte         : {{ item.nomeaparte }}</h3>        
+          
+       </ion-label>
+   </ion-item>    
+   <ion-item-options side="end">
+        <ion-item-option color="secondary" (click)="update(item)">Alterar</ion-item-option>
+        <ion-item-option color="danger" (click)="delete(item)">Excluir</ion-item-option>         
+   </ion-item-options>
+  </ion-item-sliding>
+  </ion-list>
+  
+  </ion-content>
+  

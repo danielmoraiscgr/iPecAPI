@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar> 
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text=center>Cadastro de Fazendas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+
+<ion-item>
+    <ion-label>Produtor</ion-label>
+    <ion-select name="idprodutor"  [(ngModel)]="id_produtor" value="1" okText="Ok" cancelText="Voltar">
+     <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>
+    </ion-select> 
+  </ion-item>
+
+<ion-item>
+<ion-label position="fixed">Fazenda : </ion-label>
+<ion-input [(ngModel)]="nome"></ion-input>
+</ion-item>
+
+<ion-button expand="full" (click)="add()"> Salvar </ion-button>
+
+<ion-list>
+
+<ion-list-header>
+   <ion-label> 
+        Listagem
+   </ion-label>
+</ion-list-header>
+
+<ion-item-sliding *ngFor="let item of row_data">
+ <ion-item>
+     <ion-label text-wrap>
+         <h3> Produtor : {{ item.nomeprodutor }}</h3>
+         <h3> Fazenda  : {{ item.nome }}</h3>
+           <!-- <ion-text color="secondary">
+             <p> Fazenda : {{ item.nome }}</p>
+           </ion-text> -->
+     </ion-label>
+ </ion-item>    
+ <ion-item-options side="end">
+      <ion-item-option color="secondary" (click)="update(item)">Alterar</ion-item-option>
+      <ion-item-option color="danger" (click)="delete(item)">Excluir</ion-item-option>         
+ </ion-item-options>
+</ion-item-sliding>
+</ion-list>
+
+</ion-content>
