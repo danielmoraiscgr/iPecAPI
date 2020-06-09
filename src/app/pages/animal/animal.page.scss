@@ -1,0 +1,17 @@
+body
+{
+    background-image: url("../../../assets/imagens/logo.JPG");
+    background-color: rgba(64, 118, 182, 1);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-attachment: fixed;
+}
+
+app-animal{
+    ion-content {
+      background-image: url('../../../assets/imagens/logo.JPG');
+      background-size: cover;
+      background-position-x: 50%;
+      background-attachment: fixed;
+    }
+  }

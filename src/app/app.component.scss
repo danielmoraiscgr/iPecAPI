@@ -15,4 +15,7 @@ ion-menu {
     --background: url('../assets/imagens/grass1.jpg');
   
   }
+  ion-item {
+    --ion-text-color: var(--ion-color-primary-contrast);
+  }
   

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Animais</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n\n\n    <ion-item>\n        <ion-label>Produtor</ion-label>\n        <ion-select name=\"idprodutor\"  [(ngModel)]=\"id_produtor\" okText=\"Ok\" cancelText=\"Voltar\">\n         <ion-select-option *ngFor=\"let produtor of produtores\" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>\n        </ion-select> \n      </ion-item>\n\n      <ion-item>\n          <ion-label>Fazenda</ion-label>\n          <ion-select name=\"idfazenda\"  [(ngModel)]=\"id_fazenda\" okText=\"Ok\" cancelText=\"Voltar\">\n           <ion-select-option *ngFor=\"let fazenda of fazendas\" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>\n          </ion-select> \n        </ion-item>\n      \n        <ion-item>\n            <ion-label position=\"fixed\">Ident. do Animal : </ion-label>\n            <ion-input [(ngModel)]=\"identAnimal\"></ion-input>\n       </ion-item>\n     \n        <ion-item>\n            <ion-label>Categoria</ion-label>\n            <ion-select name=\"idcategoria\"  [(ngModel)]=\"id_categoria\" okText=\"Ok\" cancelText=\"Voltar\">\n             <ion-select-option *ngFor=\"let categoria of categorias\" value={{categoria.id}}>{{categoria.nome}}</ion-select-option>\n            </ion-select> \n          </ion-item>\n        \n        <ion-item>\n            <ion-label>Raça</ion-label>\n            <ion-select name=\"idraca\"  [(ngModel)]=\"id_raca\" okText=\"Ok\" cancelText=\"Voltar\">\n             <ion-select-option *ngFor=\"let raca of racas\" value={{raca.id}}>{{raca.nome}}</ion-select-option>\n            </ion-select> \n         </ion-item>\n      \n    \n    <ion-button expand=\"full\" (click)=\"add()\"> Salvar </ion-button>\n    \n    <ion-list>\n    \n    <ion-list-header>\n       <ion-label> \n            Listagem\n       </ion-label>\n    </ion-list-header>\n    \n    <ion-item-sliding *ngFor=\"let item of row_data\">\n     <ion-item>\n         <ion-label text-wrap>\n             <h3> Produtor       : {{ item.nomeprodutor }}</h3>\n             <h3> Fazenda        : {{ item.nomefazenda }}</h3>\n             <h3> Ident. Animal  : {{ item.identanimal}} </h3>\n             <h3> Categoria      : {{ item.nomecategoria }}</h3>\n             <h3> Raça           : {{ item.nomeraca }}</h3>\n             <h3> Ativo           : {{ item.ativo }}</h3>        \n            \n         </ion-label>\n     </ion-item>    \n     <ion-item-options side=\"end\">\n          <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n          <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n     </ion-item-options>\n    </ion-item-sliding>\n    </ion-list>\n    \n    </ion-content>\n    "
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Animais</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n<ion-card>\n\n    <ion-input hidden [(ngModel)]=\"id\"></ion-input>\n\n    <ion-item>\n        <ion-label position=\"floating\">Produtor</ion-label>\n        <ion-select (blur)=\"onBlur(getFazendas(id_produtor))\"  [(ngModel)]=\"id_produtor\" okText=\"Ok\" cancelText=\"Voltar\">\n         <ion-select-option *ngFor=\"let produtor of produtores\" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>\n        </ion-select> \n      </ion-item>\n\n      <ion-item>\n          <ion-label position=\"floating\">Fazenda</ion-label>\n          <ion-select [(ngModel)]=\"id_fazenda\" okText=\"Ok\" cancelText=\"Voltar\">\n           <ion-select-option *ngFor=\"let fazenda of fazendas\" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>\n          </ion-select> \n        </ion-item>\n      \n        <ion-item>\n            <ion-label position=\"floating\">N. Animal : </ion-label>\n            <ion-input [(ngModel)]=\"identanimal\"></ion-input>\n       </ion-item>\n     \n        <ion-item>\n            <ion-label position=\"floating\">Categoria</ion-label>\n            <ion-select [(ngModel)]=\"id_categoria\" okText=\"Ok\" cancelText=\"Voltar\">\n             <ion-select-option *ngFor=\"let categoria of categorias\" value={{categoria.id}}>{{categoria.nome}}</ion-select-option>\n            </ion-select> \n          </ion-item>\n        \n        <ion-item>\n            <ion-label position=\"floating\">Raça</ion-label>\n            <ion-select  [(ngModel)]=\"id_raca\" okText=\"Ok\" cancelText=\"Voltar\">\n             <ion-select-option *ngFor=\"let raca of racas\" value={{raca.id}}>{{raca.nome}}</ion-select-option>\n            </ion-select> \n         </ion-item>\n\n        <ion-item>\n          <ion-label>Ativo</ion-label>\n          <ion-checkbox readonly=\"true\" [(ngModel)]=\"ativo\"></ion-checkbox>\n        </ion-item> \n      \n    <ion-button expand=\"full\" (click)=\"save()\"> Salvar </ion-button>\n    <ion-button expand=\"full\" (click)=\"clearfields()\"> Limpar Campos </ion-button>\n    \n    <ion-list>\n    \n    <ion-list-header>\n       <ion-label> \n            Listagem\n       </ion-label>\n    </ion-list-header>\n    \n    <ion-item-sliding *ngFor=\"let item of row_data\">\n     <ion-item>\n         <ion-label text-wrap>\n             <h3> Produtor       : {{ item.nomeprodutor }}</h3>\n             <h3> Fazenda        : {{ item.nomefazenda }}</h3>\n             <h3> Ident. Animal  : {{ item.identanimal}} </h3>\n             <h3> Categoria      : {{ item.nomecategoria }}</h3>\n             <h3> Raça           : {{ item.nomeraca }}</h3>\n             <h3> Ativo           : {{ item.ativo }}</h3>        \n            \n         </ion-label>\n     </ion-item>    \n     <ion-item-options side=\"end\">\n          <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n          <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n     </ion-item-options>\n    </ion-item-sliding>\n    </ion-list>\n  </ion-card>\n    </ion-content>\n    "
 
 /***/ }),
 
@@ -66,7 +66,7 @@ AnimalPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2FuaW1hbC9hbmltYWwucGFnZS5zY3NzIn0= */"
+module.exports = "body {\n  background-image: url('logo.JPG');\n  background-color: #4076b6;\n  background-repeat: no-repeat;\n  background-size: auto;\n  background-attachment: fixed;\n}\n\napp-animal ion-content {\n  background-image: url('logo.JPG');\n  background-size: cover;\n  background-position-x: 50%;\n  background-attachment: fixed;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYW5pZWxib3JnZXMvRG9jdW1lbnRzL2lvbmljL2lQZWN1YXJpby9zcmMvYXBwL3BhZ2VzL2FuaW1hbC9hbmltYWwucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9hbmltYWwvYW5pbWFsLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVJLGlDQUFBO0VBQ0EseUJBQUE7RUFDQSw0QkFBQTtFQUNBLHFCQUFBO0VBQ0EsNEJBQUE7QUNBSjs7QURJSTtFQUNFLGlDQUFBO0VBQ0Esc0JBQUE7RUFDQSwwQkFBQTtFQUNBLDRCQUFBO0FDRE4iLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9hbmltYWwvYW5pbWFsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHlcbntcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi8uLi9hc3NldHMvaW1hZ2Vucy9sb2dvLkpQR1wiKTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDY0LCAxMTgsIDE4MiwgMSk7XG4gICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgICBiYWNrZ3JvdW5kLXNpemU6IGF1dG87XG4gICAgYmFja2dyb3VuZC1hdHRhY2htZW50OiBmaXhlZDtcbn1cblxuYXBwLWFuaW1hbHtcbiAgICBpb24tY29udGVudCB7XG4gICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy4uLy4uLy4uL2Fzc2V0cy9pbWFnZW5zL2xvZ28uSlBHJyk7XG4gICAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICAgICAgYmFja2dyb3VuZC1wb3NpdGlvbi14OiA1MCU7XG4gICAgICBiYWNrZ3JvdW5kLWF0dGFjaG1lbnQ6IGZpeGVkO1xuICAgIH1cbiAgfSIsImJvZHkge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi8uLi9hc3NldHMvaW1hZ2Vucy9sb2dvLkpQR1wiKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzQwNzZiNjtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgYmFja2dyb3VuZC1zaXplOiBhdXRvO1xuICBiYWNrZ3JvdW5kLWF0dGFjaG1lbnQ6IGZpeGVkO1xufVxuXG5hcHAtYW5pbWFsIGlvbi1jb250ZW50IHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltYWdlbnMvbG9nby5KUEdcIik7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIGJhY2tncm91bmQtcG9zaXRpb24teDogNTAlO1xuICBiYWNrZ3JvdW5kLWF0dGFjaG1lbnQ6IGZpeGVkO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -83,18 +83,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ "./node_modules/@ionic-native/sqlite/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
 let AnimalPage = class AnimalPage {
     constructor(sqlite) {
         this.sqlite = sqlite;
-        this.identAnimal = "";
+        this.id = 0;
+        this.identanimal = "";
         this.id_produtor = 0;
         this.id_fazenda = 0;
         this.id_categoria = 0;
         this.id_raca = 0;
-        this.ativo = 0;
+        this.ativo = 1;
         this.row_data = []; // Table rows
         this.produtores = [];
         this.fazendas = [];
@@ -102,6 +105,12 @@ let AnimalPage = class AnimalPage {
         this.racas = [];
         this.database_name = "ipedDB"; // DB name
         this.table_name = "animal"; // Table name
+    }
+    scrollToTop() {
+        this.content.scrollToTop(400);
+    }
+    ionViewDidEnter() {
+        this.scrollToTop();
     }
     createDB() {
         this.sqlite.create({
@@ -127,7 +136,6 @@ let AnimalPage = class AnimalPage {
             .then(() => {
             this.getAll();
             this.getProdutores();
-            this.getFazendas();
             this.getCategorias();
             this.getRacas();
         })
@@ -135,8 +143,8 @@ let AnimalPage = class AnimalPage {
             alert("error " + JSON.stringify(e));
         });
     }
-    add() {
-        if (!this.identAnimal.length) {
+    save() {
+        if (!this.identanimal.length) {
             alert("Entre com a Identificação do Animal ! ");
             return;
         }
@@ -156,19 +164,29 @@ let AnimalPage = class AnimalPage {
             alert("Entre com a Raça !");
             return;
         }
-        this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (identanimal,id_produtor,id_fazenda,id_categoria,id_raca,ativo) VALUES (?,?,?,?,?,?)', [this.identAnimal, this.id_produtor, this.id_fazenda, this.id_categoria, this.id_raca, this.ativo])
-            .then(() => {
-            alert('Animal Inserido !');
-            this.identAnimal = "";
-            this.id_produtor = 0;
-            this.id_fazenda = 0;
-            this.id_categoria = 0;
-            this.id_raca = 0;
-            this.getAll();
-        })
-            .catch(e => {
-            alert("error " + JSON.stringify(e));
-        });
+        if (this.id != 0) {
+            this.databaseObj.executeSql('UPDATE ' + this.table_name + ' set identanimal=?,id_produtor=?,id_fazenda=?,id_categoria=?,id_raca=?,ativo=? where id=?', [this.identanimal, this.id_produtor, this.id_fazenda, this.id_categoria, this.id_raca, this.ativo, this.id])
+                .then(() => {
+                alert('Animal Atualizada !');
+                this.clearfields();
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        else {
+            this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (identanimal,id_produtor,id_fazenda,id_categoria,id_raca,ativo) VALUES (?,?,?,?,?,?)', [this.identanimal, this.id_produtor, this.id_fazenda, this.id_categoria, this.id_raca, this.ativo ? 1 : 0])
+                .then(() => {
+                alert('Animal Inserido !');
+                this.clearfields();
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        this.scrollToTop();
     }
     getAll() {
         this.databaseObj.executeSql("SELECT animal.identanimal,produtor.nome as nomeprodutor,fazenda.nome as nomefazenda,categoria.nome as nomecategoria,raca.nome as nomeraca,animal.ativo from animal , produtor, fazenda, categoria, raca where animal.id_produtor=produtor.id and animal.id_fazenda=fazenda.id and animal.id_categoria=categoria.id and animal.id_raca=raca.id", [])
@@ -198,8 +216,11 @@ let AnimalPage = class AnimalPage {
             alert("error " + JSON.stringify(e));
         });
     }
-    getFazendas() {
-        this.databaseObj.executeSql("SELECT * FROM fazenda", [])
+    compareFn(optionOne, optionTwo) {
+        return optionOne.id === optionTwo.id;
+    }
+    getFazendas(id_produtor) {
+        this.databaseObj.executeSql("SELECT * FROM fazenda where id_produtor=?", [this.id_produtor])
             .then((res) => {
             this.fazendas = [];
             if (res.rows.length > 0) {
@@ -241,7 +262,7 @@ let AnimalPage = class AnimalPage {
         });
     }
     delete(item) {
-        this.databaseObj.executeSql("DELETE FROM " + this.table_name + " WHERE id = " + item.id, [])
+        this.databaseObj.executeSql("DELETE FROM " + this.table_name + " WHERE id=?", [item.id])
             .then((res) => {
             alert("Animal removido !");
             this.getAll();
@@ -250,7 +271,25 @@ let AnimalPage = class AnimalPage {
             alert("error " + JSON.stringify(e));
         });
     }
-    update() {
+    update(item) {
+        this.id = item.id;
+        this.identanimal = item.identanimal;
+        this.id_produtor = item.id_produtor;
+        this.id_fazenda = item.id_fazenda;
+        this.id_categoria = item.id_categoria;
+        this.id_raca = item.id_raca;
+        this.ativo = item.ativo;
+        this.getFazendas(item.id_produtor);
+        this.scrollToTop();
+    }
+    clearfields() {
+        this.id = 0;
+        this.identanimal = "";
+        this.id_produtor = 0;
+        this.id_fazenda = 0;
+        this.id_categoria = 0;
+        this.id_raca = 0;
+        this.ativo = 1;
     }
     ngOnInit() {
         this.createDB();
@@ -259,6 +298,10 @@ let AnimalPage = class AnimalPage {
 AnimalPage.ctorParameters = () => [
     { type: _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_2__["SQLite"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonContent"], { static: true }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonContent"])
+], AnimalPage.prototype, "content", void 0);
 AnimalPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-animal',

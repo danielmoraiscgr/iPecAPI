@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Categoria</ion-title>\n  </ion-toolbar>\n</ion-header>\n<!-- <ion-button expand=\"full\" (click)=\"createDB()\"> Criar Banco de Dados</ion-button> -->\n<ion-content>\n  \n  <ion-item>\n       <ion-label position=\"fixed\">Nome : </ion-label>\n       <ion-input [(ngModel)]=\"nome\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n      <ion-label>Sexo : </ion-label>\n      <ion-select name=\"sexo\"  [(ngModel)]=\"sexo\" okText=\"Ok\" cancelText=\"Voltar\">\n       <ion-select-option  value=\"Macho\">Macho</ion-select-option>\n       <ion-select-option  value=\"Fêmea\">Fêmea</ion-select-option>\n       </ion-select> \n    </ion-item>\n\n  <!-- <ion-list radio-group [(ngModel)]=\"sexo\">\n      <ion-item>\n        <ion-label>Macho</ion-label>\n        <ion-radio value=\"Macho\" checked></ion-radio>\n      </ion-item>\n      <ion-item>\n        <ion-label>Femea</ion-label>\n        <ion-radio value=\"Femea\"></ion-radio>\n      </ion-item>\n    </ion-list> -->\n\n\n<ion-button expand=\"full\" (click)=\"add()\"> Salvar </ion-button>\n\n<ion-list>\n\n    <ion-list-header>\n        <ion-label> \n             Listagem\n        </ion-label>\n    </ion-list-header>\n  \n    <ion-item-sliding *ngFor=\"let item of row_data\">\n      <ion-item>\n          <ion-label text-wrap>\n              <h3> Categoria : {{ item.nome }}</h3>\n              <h3> Sexo : {{ item.sexo }}</h3>              \n          </ion-label>\n      </ion-item>    \n      <ion-item-options side=\"end\">\n           <ion-item-option color=\"secondary\" (click)=\"update(item)\">Altera</ion-item-option>\n           <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n      </ion-item-options>\n    </ion-item-sliding>\n</ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Categoria</ion-title>\n  </ion-toolbar>\n</ion-header>\n<!-- <ion-button expand=\"full\" (click)=\"createDB()\"> Criar Banco de Dados</ion-button> -->\n<ion-content>\n <ion-card> \n<ion-input hidden readonly=\"true\" [(ngModel)]=\"id\"></ion-input>\n<ion-item>\n  <ion-label position=\"floating\">Id</ion-label>\n  <ion-input [(ngModel)]=\"id\"></ion-input>\n</ion-item>\n\n  <ion-item>\n       <ion-label position=\"floating\">Nome</ion-label>\n       <ion-input [(ngModel)]=\"nome\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n      <ion-label position=\"floating\">Sexo</ion-label>\n      <ion-select name=\"sexo\"  [(ngModel)]=\"sexo\" okText=\"Ok\" cancelText=\"Voltar\">\n       <ion-select-option  value=\"Macho\">Macho</ion-select-option>\n       <ion-select-option  value=\"Fêmea\">Fêmea</ion-select-option>\n       </ion-select> \n    </ion-item>\n </ion-card>\n <ion-card><\n<ion-button expand=\"full\" (click)=\"save()\"> Salvar </ion-button>\n<ion-button expand=\"full\" (click)=\"clearfields()\"> Limpar </ion-button>\n </ion-card>\n\n <ion-list>\n    <ion-list-header>\n        <ion-label> \n             Listagem\n        </ion-label>\n    </ion-list-header>\n  <ion-card>\n    <ion-item-sliding *ngFor=\"let item of row_data\">\n      <ion-item>\n          <ion-label text-wrap>\n              <h3> Categoria : {{ item.nome }}</h3>\n              <h3> Sexo : {{ item.sexo }}</h3>              \n          </ion-label>\n      </ion-item>    \n      <ion-item-options side=\"end\">\n           <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n           <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-card>\n</ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -89,6 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 let CategoriaPage = class CategoriaPage {
     constructor(sqlite) {
         this.sqlite = sqlite;
+        this.id = 0;
         this.nome = "";
         this.sexo = "";
         this.row_data = []; // Table rows
@@ -117,7 +118,7 @@ let CategoriaPage = class CategoriaPage {
             alert("error " + JSON.stringify(e));
         });
     }
-    add() {
+    save() {
         if (!this.nome.length) {
             alert("Entre com o nome da Categoria !");
             return;
@@ -126,16 +127,32 @@ let CategoriaPage = class CategoriaPage {
             alert("Entre com o sexo da Categoria !");
             return;
         }
-        this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,sexo) VALUES (?,?)', [this.nome, this.sexo])
-            .then(() => {
-            alert('Categoria Inserida !');
-            this.nome = "";
-            this.sexo = "";
-            this.getAll();
-        })
-            .catch(e => {
-            alert("error " + JSON.stringify(e));
-        });
+        if (this.id != 0) {
+            this.databaseObj.executeSql('UPDATE ' + this.table_name + ' set nome=?,sexo=? where id=?', [this.nome, this.sexo, this.id])
+                .then(() => {
+                alert('Categoria Atualizada !');
+                this.id = 0;
+                this.nome = "";
+                this.sexo = "";
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        else {
+            this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,sexo) VALUES (?,?)', [this.nome, this.sexo])
+                .then(() => {
+                alert('Categoria Inserida !');
+                this.id = 0;
+                this.nome = "";
+                this.sexo = "";
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
     }
     getAll() {
         this.databaseObj.executeSql("SELECT * FROM " + this.table_name, [])
@@ -161,16 +178,16 @@ let CategoriaPage = class CategoriaPage {
             alert("error " + JSON.stringify(e));
         });
     }
-    update() {
+    update(item) {
+        this.id = item.id;
+        this.nome = item.nome;
+        this.sexo = item.sexo;
     }
-    /*async showToast(msg){
-      const toast = await this.toastController.create({
-        message: msg,
-        duration: 2000
-        });
-        toast.present();
+    clearfields() {
+        this.id = 0;
+        this.nome = "";
+        this.sexo = "";
     }
-    */
     ngOnInit() {
         this.createDB();
     }

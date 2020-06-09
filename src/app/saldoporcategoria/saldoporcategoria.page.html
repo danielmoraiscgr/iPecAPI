@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar> 
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text=center>Saldo por Categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+   
+      <ion-item>
+          <ion-label position="floating">Produtor</ion-label>
+          <ion-select (blur)="onBlur(getFazendas(id_produtor))" name="idprodutor"  [(ngModel)]="id_produtor" okText="Ok" cancelText="Voltar">
+           <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>
+          </ion-select> 
+        </ion-item>
+    
+        <ion-item>
+            <ion-label position="floating">Fazenda</ion-label>
+            <ion-select name="idfazenda"  [(ngModel)]="id_fazenda" okText="Ok" cancelText="Voltar">
+             <ion-select-option *ngFor="let fazenda of fazendas" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>
+            </ion-select> 
+          </ion-item>
+
+          <ion-button expand="full" (click)="saldoporCategoria()"> Calcular Saldos  </ion-button>
+          <ion-button expand="full" (click)="clearfields()"> Limpar campos  </ion-button>
+
+          <ion-item-sliding *ngFor="let totalizacao of saldoporcategorias">
+          <ion-item>
+              <ion-label text-wrap>
+                  <h3> Categoria        : {{ totalizacao.nomecategoria }}</h3>
+                  <h3> Saldo de cabeças : {{ totalizacao.totalcab}} </h3>
+          </ion-label>
+          </ion-item>    
+          </ion-item-sliding> 
+
+</ion-content>
+<ion-footer *ngFor="let total of totalcabs">
+  <ion-toolbar>
+    <ion-title>Total : {{total.totalanimais}}  </ion-title>
+  </ion-toolbar>
+</ion-footer>

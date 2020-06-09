@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Produtor Rural</ion-title>\n  </ion-toolbar>\n</ion-header>\n<!-- <ion-button expand=\"full\" (click)=\"createDB()\"> Criar Banco de Dados</ion-button> -->\n<ion-content>\n  \n  <ion-item>\n       <ion-label position=\"fixed\">Nome : </ion-label>\n       <ion-input [(ngModel)]=\"nome\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"fixed\">E-mail : </ion-label>\n    <ion-input [(ngModel)]=\"email\"></ion-input>\n</ion-item>\n\n<ion-button expand=\"full\" (click)=\"add()\"> Salvar </ion-button>\n\n<ion-list>\n\n    <ion-list-header>\n        <ion-label> \n             Listagem\n        </ion-label>\n    </ion-list-header>\n  \n    <ion-item-sliding *ngFor=\"let item of row_data\">\n      <ion-item>\n          <ion-label text-wrap>\n              <h3> Produtor : {{item.id}}-{{ item.nome }}</h3>\n                <ion-text color=\"secondary\">\n                  <p> E-mail : {{ item.email }}</p>\n                </ion-text>\n          </ion-label>\n      </ion-item>    \n      <ion-item-options side=\"end\">\n           <ion-item-option color=\"secondary\" (click)=\"update(item)\">Altera</ion-item-option>\n           <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n      </ion-item-options>\n    </ion-item-sliding>\n</ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Produtor Rural</ion-title>\n  </ion-toolbar>\n</ion-header>\n<!-- <ion-button expand=\"full\" (click)=\"createDB()\"> Criar Banco de Dados</ion-button> -->\n<ion-content>\n<ion-card>\n  <ion-input hidden [(ngModel)]=\"id\"></ion-input>\n\n  <ion-item>\n       <ion-label position=\"floating\">Nome</ion-label>\n       <ion-input [(ngModel)]=\"nome\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"floating\">E-mail</ion-label>\n    <ion-input [(ngModel)]=\"email\"></ion-input>\n</ion-item>\n</ion-card>\n<ion-card>\n  <ion-button expand=\"full\" (click)=\"save()\"> Salvar </ion-button>\n<ion-button expand=\"full\" (click)=\"clearfields()\"> Limpar </ion-button>\n</ion-card>\n<ion-list>  \n   <ion-card-header>\n     <ion-card-title> Listagem </ion-card-title>\n   </ion-card-header>\n   <ion-card>   \n    <ion-item-sliding *ngFor=\"let item of row_data\">\n      <ion-item>\n          <ion-label text-wrap>\n              <h3> Produtor : {{item.id}}-{{ item.nome }}</h3>\n                <ion-text color=\"secondary\">\n                  <p> E-mail : {{ item.email }}</p>\n                </ion-text>\n          </ion-label>\n      </ion-item>    \n      <ion-item-options side=\"end\">\n           <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n           <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-card>\n</ion-list>\n\n<!-- <ion-fab bottom right>\n  <button ion-fab color=\"secondary\" class=\"fabAddBtn\"><ion-icon \n  name=\"add\"></ion-icon></button>\n  </ion-fab>   -->\n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var ProdutorPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3Byb2R1dG9yL3Byb2R1dG9yLnBhZ2Uuc2NzcyJ9 */"
+module.exports = ".fabAddBtn {\n  color: var(--ion-color-primary);\n  right: 10px;\n  margin: 150px;\n  background: var(--ion-color-primary);\n  height: 70px;\n  width: 70px;\n  font-size: 50px;\n  line-height: 16px;\n  padding-left: 8px;\n  padding-right: 8px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  border-radius: 30px;\n  color: #fff;\n  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYW5pZWxib3JnZXMvRG9jdW1lbnRzL2lvbmljL2lQZWN1YXJpby9zcmMvYXBwL3BhZ2VzL3Byb2R1dG9yL3Byb2R1dG9yLnBhZ2Uuc2NzcyIsInNyYy9hcHAvcGFnZXMvcHJvZHV0b3IvcHJvZHV0b3IucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksK0JBQUE7RUFRQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLG9DQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsV0FBQTtFQUNBLHlFQUFBO0FDTkoiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9wcm9kdXRvci9wcm9kdXRvci5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZmFiQWRkQnRuIHtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xuICAgIC8vIGZvbnQtc2l6ZTogMzBweDtcbiAgICAvLyBtYXJnaW46IDhweDtcbiAgICAvLyB3aWR0aDogNDBweDtcbiAgICAvLyBoZWlnaHQ6IDQwcHg7XG4gICAgLy8gbGluZS1oZWlnaHQ6IDQwcHg7XG4gICAgLy9cbiAgICAvL3Bvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICByaWdodDogMTBweDtcbiAgICBtYXJnaW46IDE1MHB4O1xuICAgIGJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbiAgICBoZWlnaHQ6IDcwcHg7XG4gICAgd2lkdGg6IDcwcHg7XG4gICAgZm9udC1zaXplOiA1MHB4O1xuICAgIGxpbmUtaGVpZ2h0OiAxNnB4O1xuICAgIHBhZGRpbmctbGVmdDogOHB4O1xuICAgIHBhZGRpbmctcmlnaHQ6IDhweDtcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xuICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gICAgYm9yZGVyLXJhZGl1czogMzBweDtcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBib3gtc2hhZG93OiAwIDRweCA2cHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDRweCA1cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICB9IiwiLmZhYkFkZEJ0biB7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIHJpZ2h0OiAxMHB4O1xuICBtYXJnaW46IDE1MHB4O1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIGhlaWdodDogNzBweDtcbiAgd2lkdGg6IDcwcHg7XG4gIGZvbnQtc2l6ZTogNTBweDtcbiAgbGluZS1oZWlnaHQ6IDE2cHg7XG4gIHBhZGRpbmctbGVmdDogOHB4O1xuICBwYWRkaW5nLXJpZ2h0OiA4cHg7XG4gIHBhZGRpbmctdG9wOiA1cHg7XG4gIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gIGJvcmRlci1yYWRpdXM6IDMwcHg7XG4gIGNvbG9yOiAjZmZmO1xuICBib3gtc2hhZG93OiAwIDRweCA2cHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDRweCA1cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -92,6 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 var ProdutorPage = /** @class */ (function () {
     function ProdutorPage(sqlite) {
         this.sqlite = sqlite;
+        this.id = 0;
         this.nome = "";
         this.email = "";
         this.name_model = ""; // Input field model
@@ -107,7 +108,6 @@ var ProdutorPage = /** @class */ (function () {
         })
             .then(function (db) {
             _this.databaseObj = db;
-            //alert('Banco de dados Criado !');
             _this.createTable();
         })
             .catch(function (e) {
@@ -118,29 +118,48 @@ var ProdutorPage = /** @class */ (function () {
         var _this = this;
         this.databaseObj.executeSql('CREATE TABLE IF NOT EXISTS ' + this.table_name + ' (id INTEGER PRIMARY KEY, nome varchar(255) not null, email varchar(255) not null)', [])
             .then(function () {
-            //alert('Tabela Produtor criada !');
             _this.getAll();
         })
             .catch(function (e) {
             alert("error " + JSON.stringify(e));
         });
     };
-    ProdutorPage.prototype.add = function () {
+    ProdutorPage.prototype.save = function () {
         var _this = this;
         if (!this.nome.length) {
             alert("Entre com o nome !");
             return;
         }
-        this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,email) VALUES ("' + this.nome + '","' + this.email + '")', [])
-            .then(function () {
-            alert('Produtor Inserido !');
-            _this.nome = "";
-            _this.email = "";
-            _this.getAll();
-        })
-            .catch(function (e) {
-            alert("error " + JSON.stringify(e));
-        });
+        if (this.id != 0) {
+            this.databaseObj.executeSql('UPDATE ' + this.table_name + ' set nome=?,email=? where id=?', [this.nome, this.email, this.id])
+                .then(function () {
+                alert('Produtor Atualizado !');
+                _this.id = 0;
+                _this.nome = "";
+                _this.email = "";
+                _this.getAll();
+            })
+                .catch(function (e) {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        else {
+            this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,email) VALUES (?,?)', [this.nome, this.email])
+                .then(function () {
+                alert('Produtor Inserido !');
+                _this.nome = "";
+                _this.email = "";
+                _this.getAll();
+            })
+                .catch(function (e) {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+    };
+    ProdutorPage.prototype.clearfields = function () {
+        this.id = 0;
+        this.email = "";
+        this.nome = "";
     };
     ProdutorPage.prototype.getAll = function () {
         var _this = this;
@@ -168,19 +187,13 @@ var ProdutorPage = /** @class */ (function () {
             alert("error " + JSON.stringify(e));
         });
     };
-    ProdutorPage.prototype.update = function () {
+    ProdutorPage.prototype.update = function (item) {
+        this.id = item.id;
+        this.email = item.email;
+        this.nome = item.nome;
     };
-    /*async showToast(msg){
-      const toast = await this.toastController.create({
-        message: msg,
-        duration: 2000
-        });
-        toast.present();
-    }
-    */
     ProdutorPage.prototype.ngOnInit = function () {
         this.createDB();
-        //this.getAll(); 
     };
     ProdutorPage.ctorParameters = function () { return [
         { type: _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_2__["SQLite"] }

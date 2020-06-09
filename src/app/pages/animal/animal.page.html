@@ -3,49 +3,55 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title text=center>Cadastro de Animais</ion-title>
+    <ion-title text=center>Cadastro de Animal</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-
+<ion-card>
+    <ion-input hidden [(ngModel)]="id"></ion-input>
 
     <ion-item>
-        <ion-label>Produtor</ion-label>
-        <ion-select name="idprodutor"  [(ngModel)]="id_produtor" okText="Ok" cancelText="Voltar">
+        <ion-label position="floating">Produtor</ion-label>
+        <ion-select (blur)="onBlur(getFazendas(id_produtor))"  [(ngModel)]="id_produtor" okText="Ok" cancelText="Voltar">
          <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>
         </ion-select> 
       </ion-item>
 
       <ion-item>
-          <ion-label>Fazenda</ion-label>
-          <ion-select name="idfazenda"  [(ngModel)]="id_fazenda" okText="Ok" cancelText="Voltar">
+          <ion-label position="floating">Fazenda</ion-label>
+          <ion-select [(ngModel)]="id_fazenda" okText="Ok" cancelText="Voltar">
            <ion-select-option *ngFor="let fazenda of fazendas" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>
           </ion-select> 
         </ion-item>
       
         <ion-item>
-            <ion-label position="fixed">Ident. do Animal : </ion-label>
-            <ion-input [(ngModel)]="identAnimal"></ion-input>
+            <ion-label position="floating">N. Animal : </ion-label>
+            <ion-input [(ngModel)]="identanimal"></ion-input>
        </ion-item>
      
         <ion-item>
-            <ion-label>Categoria</ion-label>
-            <ion-select name="idcategoria"  [(ngModel)]="id_categoria" okText="Ok" cancelText="Voltar">
+            <ion-label position="floating">Categoria</ion-label>
+            <ion-select [(ngModel)]="id_categoria" okText="Ok" cancelText="Voltar">
              <ion-select-option *ngFor="let categoria of categorias" value={{categoria.id}}>{{categoria.nome}}</ion-select-option>
             </ion-select> 
           </ion-item>
         
         <ion-item>
-            <ion-label>Raça</ion-label>
-            <ion-select name="idraca"  [(ngModel)]="id_raca" okText="Ok" cancelText="Voltar">
+            <ion-label position="floating">Raça</ion-label>
+            <ion-select  [(ngModel)]="id_raca" okText="Ok" cancelText="Voltar">
              <ion-select-option *ngFor="let raca of racas" value={{raca.id}}>{{raca.nome}}</ion-select-option>
             </ion-select> 
          </ion-item>
+
+        <ion-item>
+          <ion-label>Ativo</ion-label>
+          <ion-checkbox readonly="true" [(ngModel)]="ativo"></ion-checkbox>
+        </ion-item> 
       
-    
-    <ion-button expand="full" (click)="add()"> Salvar </ion-button>
+    <ion-button expand="full" (click)="save()"> Salvar </ion-button>
+    <ion-button expand="full" (click)="clearfields()"> Limpar Campos </ion-button>
     
     <ion-list>
     
@@ -73,6 +79,6 @@
      </ion-item-options>
     </ion-item-sliding>
     </ion-list>
-    
+  </ion-card>
     </ion-content>
     

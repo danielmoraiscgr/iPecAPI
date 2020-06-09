@@ -8,9 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-//import { IonicStorageModule } from '@ionic/storage';
-
-import { SQLite } from '@ionic-native/sqlite/ngx';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { ProdutorService } from './services/produtor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,14 +18,16 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
+  ,[ProdutorService]],
   bootstrap: [AppComponent]
+ 
 })
 export class AppModule {}

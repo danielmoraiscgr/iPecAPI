@@ -39,6 +39,26 @@ var map = {
 	"./pages/tipomanejo/tipomanejo.module": [
 		"./src/app/pages/tipomanejo/tipomanejo.module.ts",
 		"pages-tipomanejo-tipomanejo-module"
+	],
+	"./pages/totalizacao/totalizacao.module": [
+		"./src/app/pages/totalizacao/totalizacao.module.ts",
+		"pages-totalizacao-totalizacao-module"
+	],
+	"./saldoporcategoria/saldoporcategoria.module": [
+		"./src/app/saldoporcategoria/saldoporcategoria.module.ts",
+		"saldoporcategoria-saldoporcategoria-module"
+	],
+	"./totalcategoria/totalcategoria.module": [
+		"./src/app/totalcategoria/totalcategoria.module.ts",
+		"totalcategoria-totalcategoria-module"
+	],
+	"./totalcategoriaraca/totalcategoriaraca.module": [
+		"./src/app/totalcategoriaraca/totalcategoriaraca.module.ts",
+		"totalcategoriaraca-totalcategoriaraca-module"
+	],
+	"./totaltipomanejoaparte/totaltipomanejoaparte.module": [
+		"./src/app/totaltipomanejoaparte/totaltipomanejoaparte.module.ts",
+		"totaltipomanejoaparte-totaltipomanejoaparte-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -487,7 +507,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane>\n    <ion-menu type=\"overlay\">\n      <ion-header>\n        <ion-toolbar>\n          <ion-title>Menu - iPec</ion-title>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content>\n        <ion-list>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\n            <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\n              <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\n              <ion-label>\n                {{p.title}}\n              </ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet main></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-split-pane>\n    <ion-menu type=\"overlay\">\n      <ion-header>\n        <ion-toolbar>\n          <ion-title>Menu - iPec V.1</ion-title>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content>\n        <ion-list>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\n            <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\n              <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\n              <ion-label>\n                {{p.title}}\n              </ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet main></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n"
 
 /***/ }),
 
@@ -556,7 +576,12 @@ var routes = [
     { path: 'aparte', loadChildren: './pages/aparte/aparte.module#ApartePageModule' },
     { path: 'tipomanejo', loadChildren: './pages/tipomanejo/tipomanejo.module#TipomanejoPageModule' },
     { path: 'animal', loadChildren: './pages/animal/animal.module#AnimalPageModule' },
-    { path: 'manejo', loadChildren: './pages/manejo/manejo.module#ManejoPageModule' }
+    { path: 'manejo', loadChildren: './pages/manejo/manejo.module#ManejoPageModule' },
+    { path: 'totalizacao', loadChildren: './pages/totalizacao/totalizacao.module#TotalizacaoPageModule' },
+    { path: 'totalcategoriaraca', loadChildren: './totalcategoriaraca/totalcategoriaraca.module#TotalcategoriaracaPageModule' },
+    { path: 'totaltipomanejoaparte', loadChildren: './totaltipomanejoaparte/totaltipomanejoaparte.module#TotaltipomanejoapartePageModule' },
+    { path: 'totalcategoria', loadChildren: './totalcategoria/totalcategoria.module#TotalcategoriaPageModule' },
+    { path: 'saldoporcategoria', loadChildren: './saldoporcategoria/saldoporcategoria.module#SaldoporcategoriaPageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -583,7 +608,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-menu {\n  --ion-background-color: var(--ion-color-dark-tint);\n  --ion-text-color: var(--ion-color-primary-contrast);\n}\nion-menu ion-toolbar {\n  --background: var(--ion-color-danger-shade);\n}\nion-menu ion-list {\n  /* optional, but it needs when you use gradient as a background color.*/\n  background: transparent;\n}\nion-content {\n  --background: url('grass1.jpg');\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYW5pZWxib3JnZXMvRG9jdW1lbnRzL2lvbmljL2lQZWN1YXJpby9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0RBQUE7RUFDQSxtREFBQTtBQ0NKO0FEQ0k7RUFDRSwyQ0FBQTtBQ0NOO0FERUk7RUFBVSx1RUFBQTtFQUNSLHVCQUFBO0FDQ047QURHRTtFQUNFLCtCQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tbWVudSB7XG4gICAgLS1pb24tYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLWRhcmstdGludCk7XG4gICAgLS1pb24tdGV4dC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnktY29udHJhc3QpO1xuICBcbiAgICBpb24tdG9vbGJhciB7XG4gICAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1kYW5nZXItc2hhZGUpO1xuICAgIH1cbiAgXG4gICAgaW9uLWxpc3Qgey8qIG9wdGlvbmFsLCBidXQgaXQgbmVlZHMgd2hlbiB5b3UgdXNlIGdyYWRpZW50IGFzIGEgYmFja2dyb3VuZCBjb2xvci4qL1xuICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgfVxuICBcbiAgfVxuICBpb24tY29udGVudCB7XG4gICAgLS1iYWNrZ3JvdW5kOiB1cmwoJy4uL2Fzc2V0cy9pbWFnZW5zL2dyYXNzMS5qcGcnKTtcbiAgXG4gIH1cbiAgIiwiaW9uLW1lbnUge1xuICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItZGFyay10aW50KTtcbiAgLS1pb24tdGV4dC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnktY29udHJhc3QpO1xufVxuaW9uLW1lbnUgaW9uLXRvb2xiYXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1kYW5nZXItc2hhZGUpO1xufVxuaW9uLW1lbnUgaW9uLWxpc3Qge1xuICAvKiBvcHRpb25hbCwgYnV0IGl0IG5lZWRzIHdoZW4geW91IHVzZSBncmFkaWVudCBhcyBhIGJhY2tncm91bmQgY29sb3IuKi9cbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbmlvbi1jb250ZW50IHtcbiAgLS1iYWNrZ3JvdW5kOiB1cmwoXCIuLi9hc3NldHMvaW1hZ2Vucy9ncmFzczEuanBnXCIpO1xufSJdfQ== */"
+module.exports = "ion-menu {\n  --ion-background-color: var(--ion-color-dark-tint);\n  --ion-text-color: var(--ion-color-primary-contrast);\n}\nion-menu ion-toolbar {\n  --background: var(--ion-color-danger-shade);\n}\nion-menu ion-list {\n  /* optional, but it needs when you use gradient as a background color.*/\n  background: transparent;\n}\nion-content {\n  --background: url('grass1.jpg');\n}\nion-item {\n  --ion-text-color: var(--ion-color-primary-contrast);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYW5pZWxib3JnZXMvRG9jdW1lbnRzL2lvbmljL2lQZWN1YXJpby9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0RBQUE7RUFDQSxtREFBQTtBQ0NKO0FEQ0k7RUFDRSwyQ0FBQTtBQ0NOO0FERUk7RUFBVSx1RUFBQTtFQUNSLHVCQUFBO0FDQ047QURHRTtFQUNFLCtCQUFBO0FDQUo7QURHRTtFQUNFLG1EQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tbWVudSB7XG4gICAgLS1pb24tYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLWRhcmstdGludCk7XG4gICAgLS1pb24tdGV4dC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnktY29udHJhc3QpO1xuICBcbiAgICBpb24tdG9vbGJhciB7XG4gICAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1kYW5nZXItc2hhZGUpO1xuICAgIH1cbiAgXG4gICAgaW9uLWxpc3Qgey8qIG9wdGlvbmFsLCBidXQgaXQgbmVlZHMgd2hlbiB5b3UgdXNlIGdyYWRpZW50IGFzIGEgYmFja2dyb3VuZCBjb2xvci4qL1xuICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgfVxuICBcbiAgfVxuICBpb24tY29udGVudCB7XG4gICAgLS1iYWNrZ3JvdW5kOiB1cmwoJy4uL2Fzc2V0cy9pbWFnZW5zL2dyYXNzMS5qcGcnKTtcbiAgXG4gIH1cbiAgaW9uLWl0ZW0ge1xuICAgIC0taW9uLXRleHQtY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5LWNvbnRyYXN0KTtcbiAgfVxuICAiLCJpb24tbWVudSB7XG4gIC0taW9uLWJhY2tncm91bmQtY29sb3I6IHZhcigtLWlvbi1jb2xvci1kYXJrLXRpbnQpO1xuICAtLWlvbi10ZXh0LWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeS1jb250cmFzdCk7XG59XG5pb24tbWVudSBpb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWNvbG9yLWRhbmdlci1zaGFkZSk7XG59XG5pb24tbWVudSBpb24tbGlzdCB7XG4gIC8qIG9wdGlvbmFsLCBidXQgaXQgbmVlZHMgd2hlbiB5b3UgdXNlIGdyYWRpZW50IGFzIGEgYmFja2dyb3VuZCBjb2xvci4qL1xuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbn1cblxuaW9uLWNvbnRlbnQge1xuICAtLWJhY2tncm91bmQ6IHVybChcIi4uL2Fzc2V0cy9pbWFnZW5zL2dyYXNzMS5qcGdcIik7XG59XG5cbmlvbi1pdGVtIHtcbiAgLS1pb24tdGV4dC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnktY29udHJhc3QpO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -622,27 +647,22 @@ var AppComponent = /** @class */ (function () {
             {
                 title: 'Produtor',
                 url: 'produtor',
-                icon: 'list'
+                icon: 'person'
             },
             {
                 title: 'Fazendas',
                 url: 'fazenda',
-                icon: 'list'
+                icon: 'globe'
             },
             {
                 title: 'Categorias',
                 url: 'categoria',
-                icon: 'list'
+                icon: 'paw'
             },
             {
                 title: 'Raças',
                 url: 'raca',
-                icon: 'list'
-            },
-            {
-                title: 'Apartes',
-                url: 'aparte',
-                icon: 'list'
+                icon: 'trophy'
             },
             {
                 title: 'Tipo de Manejo',
@@ -650,14 +670,44 @@ var AppComponent = /** @class */ (function () {
                 icon: 'list'
             },
             {
+                title: 'Apartes',
+                url: 'aparte',
+                icon: 'trending-up'
+            },
+            {
                 title: 'Animais',
                 url: 'animal',
-                icon: 'list'
+                icon: 'at'
             },
             {
                 title: 'Manejo',
                 url: 'manejo',
-                icon: 'list'
+                icon: 'stats'
+            },
+            {
+                title: 'Saldo por Categoria',
+                url: 'saldoporcategoria',
+                icon: 'calculator'
+            },
+            {
+                title: 'Calc por Data',
+                url: 'totalizacao',
+                icon: 'calculator'
+            },
+            {
+                title: 'Calc por Categ/Raça/Aparte',
+                url: 'totalcategoriaraca',
+                icon: 'calculator'
+            },
+            {
+                title: 'Calc por Tipo Manejo/Aparte',
+                url: 'totaltipomanejoaparte',
+                icon: 'calculator'
+            },
+            {
+                title: 'Calc por Categoria',
+                url: 'totalcategoria',
+                icon: 'calculator'
             }
         ];
         this.initializeApp();
@@ -720,7 +770,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import { IonicStorageModule } from '@ionic/storage';
 
 var AppModule = /** @class */ (function () {
     function AppModule() {

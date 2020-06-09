@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Apartes</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n<ion-item>\n    <ion-label>Tipo Manejo </ion-label>\n    <ion-select name=\"idtipomanejo\"  [(ngModel)]=\"id_tipomanejo\"  okText=\"Ok\" cancelText=\"Voltar\">\n     <ion-select-option *ngFor=\"let tipomanejo of tipomanejos\" value={{tipomanejo.id}}>{{tipomanejo.nome}}</ion-select-option>\n    </ion-select> \n  </ion-item>\n\n<ion-item>\n<ion-label position=\"fixed\">Nome Aparte : </ion-label>\n<ion-input [(ngModel)]=\"nome\"></ion-input>\n</ion-item>\n\n<ion-item>\n    <ion-label position=\"fixed\">Peso inicial : </ion-label>\n    <ion-input [(ngModel)]=\"pesoinicial\"></ion-input>\n</ion-item>\n\n<ion-item>\n    <ion-label position=\"fixed\">Peso final : </ion-label>\n    <ion-input [(ngModel)]=\"pesofinal\"></ion-input>\n</ion-item>\n\n<ion-button expand=\"full\" (click)=\"add()\"> Salvar </ion-button>\n\n<ion-list>\n\n<ion-list-header>\n   <ion-label> \n        Listagem\n   </ion-label>\n</ion-list-header>\n\n<ion-item-sliding *ngFor=\"let item of row_data\">\n <ion-item>\n     <ion-label text-wrap>\n         <h3> Tipo Manejo  : {{ item.nometipomanejo }}</h3>\n         <h3> Nome Aparte  : {{ item.nome }}</h3>\n         <h3> Peso Inicial : > = {{ item.pesoinicial }} </h3>\n         <h3> Peso Final   : < = {{ item.pesofinal }}</h3>\n          \n     </ion-label>\n </ion-item>    \n <ion-item-options side=\"end\">\n      <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n      <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n </ion-item-options>\n</ion-item-sliding>\n</ion-list>\n\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Apartes</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n <ion-card>\n    <ion-input hidden [(ngModel)]=\"id\"></ion-input>\n  \n<ion-item>\n    <ion-label position=\"floating\">Tipo Manejo </ion-label>\n    <ion-select name=\"idtipomanejo\"  [(ngModel)]=\"id_tipomanejo\"  okText=\"Ok\" cancelText=\"Voltar\">\n     <ion-select-option *ngFor=\"let tipomanejo of tipomanejos\" value={{tipomanejo.id}}>{{tipomanejo.nome}}</ion-select-option>\n    </ion-select> \n  </ion-item>\n<ion-item>\n<ion-label position=\"floating\">Nome Aparte</ion-label>\n<ion-input [(ngModel)]=\"nome\"></ion-input>\n</ion-item>\n\n<ion-item>\n    <ion-label position=\"floating\">Peso inicial</ion-label>\n    <ion-input [(ngModel)]=\"pesoinicial\"></ion-input>\n</ion-item>\n\n<ion-item>\n    <ion-label position=\"floating\">Peso final</ion-label>\n    <ion-input [(ngModel)]=\"pesofinal\"></ion-input>\n</ion-item>\n</ion-card>\n<ion-card>\n<ion-button expand=\"full\" (click)=\"save()\"> Salvar </ion-button>\n<ion-button expand=\"full\" (click)=\"clearfields()\"> Limpar </ion-button>\n</ion-card>\n<ion-list>\n\n<ion-list-header>\n   <ion-label> \n        Listagem\n   </ion-label>\n</ion-list-header>\n<ion-card>\n<ion-item-sliding *ngFor=\"let item of row_data\">\n <ion-item>\n     <ion-label text-wrap>\n         <h3> Tipo Manejo  : {{ item.nometipomanejo }}</h3>\n         <h3> Nome Aparte  : {{ item.nome }}</h3>\n         <h3> Peso Inicial : > = {{ item.pesoinicial }} </h3>\n         <h3> Peso Final   : < = {{ item.pesofinal }}</h3>\n          \n     </ion-label>\n </ion-item>    \n <ion-item-options side=\"end\">\n      <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n      <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n </ion-item-options>\n</ion-item-sliding>\n</ion-card>\n</ion-list>\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -89,6 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 let ApartePage = class ApartePage {
     constructor(sqlite) {
         this.sqlite = sqlite;
+        this.id = 0;
         this.nome = "";
         this.pesoinicial = 0;
         this.pesofinal = 0;
@@ -111,7 +112,6 @@ let ApartePage = class ApartePage {
         });
     }
     createTable() {
-        //this.databaseObj.executeSql('CREATE TABLE IF NOT EXISTS aparte (id integer primary key AUTOINCREMENT NOT NULL, id_tipomanejo integer NOT NULL, nome TEXT NOT NULL, pesoinicial integer NOT NULL, pesofinal integer NOT NULL)', [])
         this.databaseObj.sqlBatch([
             ['CREATE TABLE IF NOT EXISTS aparte (id integer primary key AUTOINCREMENT NOT NULL, id_tipomanejo integer NOT NULL, nome TEXT NOT NULL, pesoinicial integer NOT NULL, pesofinal integer NOT NULL)'],
             ['CREATE TABLE IF NOT EXISTS tipomanejo (id integer primary key AUTOINCREMENT NOT NULL, nome TEXT NOT NULL)'],
@@ -124,7 +124,7 @@ let ApartePage = class ApartePage {
             alert("error " + JSON.stringify(e));
         });
     }
-    add() {
+    save() {
         if (!this.nome.length) {
             alert("Entre com o nome do Aparte !");
             return;
@@ -141,18 +141,34 @@ let ApartePage = class ApartePage {
             alert("Entre com o Peso Final !");
             return;
         }
-        this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,id_tipomanejo,pesoinicial,pesofinal) VALUES (?,?,?,?)', [this.nome, this.id_tipomanejo, this.pesoinicial, this.pesofinal])
-            .then(() => {
-            alert('Aparte Inserido !');
-            this.nome = "";
-            this.id_tipomanejo = 0;
-            this.pesoinicial = 0;
-            this.pesofinal = 0;
-            this.getAll();
-        })
-            .catch(e => {
-            alert("error " + JSON.stringify(e));
-        });
+        if (this.id != 0) {
+            this.databaseObj.executeSql('UPDATE ' + this.table_name + ' set nome=?,id_tipomanejo=?,pesoinicial=?,pesofinal=? where id=?', [this.nome, this.id_tipomanejo, this.pesoinicial, this.pesofinal])
+                .then(() => {
+                alert('Aparte Atualizado !');
+                this.nome = "";
+                this.id_tipomanejo = 0;
+                this.pesoinicial = 0;
+                this.pesofinal = 0;
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        else {
+            this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,id_tipomanejo,pesoinicial,pesofinal) VALUES (?,?,?,?)', [this.nome, this.id_tipomanejo, this.pesoinicial, this.pesofinal])
+                .then(() => {
+                alert('Aparte Inserido !');
+                this.nome = "";
+                this.id_tipomanejo = 0;
+                this.pesoinicial = 0;
+                this.pesofinal = 0;
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
     }
     getAll() {
         this.databaseObj.executeSql("SELECT aparte.id,aparte.nome,aparte.pesoinicial,aparte.pesofinal,tipomanejo.nome as nometipomanejo FROM aparte, tipomanejo where aparte.id_tipomanejo=tipomanejo.id", [])
@@ -185,14 +201,23 @@ let ApartePage = class ApartePage {
     delete(item) {
         this.databaseObj.executeSql("DELETE FROM " + this.table_name + " WHERE id = " + item.id, [])
             .then((res) => {
-            alert("Raça removida !");
+            alert("Aparte removido !");
             this.getAll();
         })
             .catch(e => {
             alert("error " + JSON.stringify(e));
         });
     }
-    update() {
+    update(item) {
+        this.id = item.id;
+        this.nome = item.nome;
+        this.id_tipomanejo = item.id_tipomanejo;
+        this.pesoinicial = item.pesoinicial;
+        this.pesofinal = item.pesofinal;
+    }
+    clearfields() {
+        this.id = 0;
+        this.nome = "";
     }
     ngOnInit() {
         this.createDB();

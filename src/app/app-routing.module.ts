@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule , LOCALE_ID} from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
 
 const routes: Routes = [
   {
@@ -50,7 +51,12 @@ const routes: Routes = [
   { path: 'aparte', loadChildren: './pages/aparte/aparte.module#ApartePageModule' },
   { path: 'tipomanejo', loadChildren: './pages/tipomanejo/tipomanejo.module#TipomanejoPageModule' },
   { path: 'animal', loadChildren: './pages/animal/animal.module#AnimalPageModule' },
-  { path: 'manejo', loadChildren: './pages/manejo/manejo.module#ManejoPageModule' }
+  { path: 'manejo', loadChildren: './pages/manejo/manejo.module#ManejoPageModule' },
+  { path: 'totalizacao', loadChildren: './pages/totalizacao/totalizacao.module#TotalizacaoPageModule' },
+  { path: 'totalcategoriaraca', loadChildren: './totalcategoriaraca/totalcategoriaraca.module#TotalcategoriaracaPageModule' },
+  { path: 'totaltipomanejoaparte', loadChildren: './totaltipomanejoaparte/totaltipomanejoaparte.module#TotaltipomanejoapartePageModule' },
+  { path: 'totalcategoria', loadChildren: './totalcategoria/totalcategoria.module#TotalcategoriaPageModule' },
+  { path: 'saldoporcategoria', loadChildren: './saldoporcategoria/saldoporcategoria.module#SaldoporcategoriaPageModule' }
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar> \n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Fazendas</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  \n\n<ion-item>\n    <ion-label>Produtor</ion-label>\n    <ion-select name=\"idprodutor\"  [(ngModel)]=\"id_produtor\" value=\"1\" okText=\"Ok\" cancelText=\"Voltar\">\n     <ion-select-option *ngFor=\"let produtor of produtores\" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>\n    </ion-select> \n  </ion-item>\n\n<ion-item>\n<ion-label position=\"fixed\">Fazenda : </ion-label>\n<ion-input [(ngModel)]=\"nome\"></ion-input>\n</ion-item>\n\n<ion-button expand=\"full\" (click)=\"add()\"> Salvar </ion-button>\n\n<ion-list>\n\n<ion-list-header>\n   <ion-label> \n        Listagem\n   </ion-label>\n</ion-list-header>\n\n<ion-item-sliding *ngFor=\"let item of row_data\">\n <ion-item>\n     <ion-label text-wrap>\n         <h3> Produtor : {{ item.nomeprodutor }}</h3>\n         <h3> Fazenda  : {{ item.nome }}</h3>\n           <!-- <ion-text color=\"secondary\">\n             <p> Fazenda : {{ item.nome }}</p>\n           </ion-text> -->\n     </ion-label>\n </ion-item>    \n <ion-item-options side=\"end\">\n      <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n      <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n </ion-item-options>\n</ion-item-sliding>\n</ion-list>\n\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar> \n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Fazendas</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card>\n\n<ion-input hidden [(ngModel)]=\"id\"></ion-input>\n\n<ion-item>\n    <ion-label position=\"floating\">Produtor</ion-label>  \n    <ion-select [compareWith]=\"compareWith\" [(ngModel)]=\"id_produtor\"  okText=\"Ok\" cancelText=\"Voltar\">\n     <ion-select-option *ngFor=\"let produtor of produtores\"  value={{produtor.id}} >{{produtor.nome}}</ion-select-option>\n    </ion-select> \n  </ion-item>\n\n<ion-item>\n<ion-label position=\"floating\">Fazenda</ion-label>\n<ion-input [(ngModel)]=\"nome\"></ion-input>\n</ion-item>\n  </ion-card>\n<ion-card>\n<ion-button expand=\"full\" (click)=\"save()\"> Salvar </ion-button>\n<ion-button expand=\"full\" (click)=\"clearfields()\"> Limpar </ion-button>\n</ion-card>\n<ion-list>\n\n<ion-list-header>\n   <ion-label> \n        Listagem\n   </ion-label>\n</ion-list-header>\n<ion-card>\n  <ion-item-sliding *ngFor=\"let item of row_data\">\n <ion-item>\n     <ion-label text-wrap>\n         <h3> Produtor : {{ item.nomeprodutor }}</h3>\n         <h3> Fazenda  : {{ item.nome }}</h3>\n           <!-- <ion-text color=\"secondary\">\n             <p> Fazenda : {{ item.nome }}</p>\n           </ion-text> -->\n     </ion-label>\n </ion-item>    \n <ion-item-options side=\"end\">\n      <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n      <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n </ion-item-options>\n</ion-item-sliding>\n</ion-card>\n</ion-list>\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -89,6 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 let FazendaPage = class FazendaPage {
     constructor(sqlite) {
         this.sqlite = sqlite;
+        this.id = 0;
         this.nome = "";
         this.row_data = []; // Table rows
         this.produtores = [];
@@ -122,7 +123,12 @@ let FazendaPage = class FazendaPage {
             // alert("error " + JSON.stringify(e))
         });
     }
-    add() {
+    clearfields() {
+        this.id = 0;
+        this.id_produtor = 0;
+        this.nome = "";
+    }
+    save() {
         if (this.id_produtor == null) {
             alert("Entre com o Produtor !");
             return;
@@ -131,16 +137,31 @@ let FazendaPage = class FazendaPage {
             alert("Entre com o nome da Fazenda !");
             return;
         }
-        this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,id_produtor) VALUES (?,?)', [this.nome, this.id_produtor])
-            .then(() => {
-            alert('Fazenda Inserida !');
-            this.nome = "";
-            this.id_produtor = 0;
-            this.getAll();
-        })
-            .catch(e => {
-            alert("error " + JSON.stringify(e));
-        });
+        if (this.id != 0) {
+            this.databaseObj.executeSql('UPDATE ' + this.table_name + ' set nome=?,id_produtor=? where id=?', [this.nome, this.id_produtor, this.id])
+                .then(() => {
+                alert('Fazenda Atualizado !');
+                this.id = 0;
+                this.id_produtor = 0;
+                this.nome = "";
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        else {
+            this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome,id_produtor) VALUES (?,?)', [this.nome, this.id_produtor])
+                .then(() => {
+                alert('Fazenda Inserida !');
+                this.nome = "";
+                this.id_produtor = 0;
+                this.getAll();
+            })
+                .catch(e => {
+                alert("error " + JSON.stringify(e));
+            });
+        }
     }
     getAll() {
         this.databaseObj.executeSql("SELECT fazenda.id,fazenda.nome,fazenda.id_produtor,produtor.nome as nomeprodutor from fazenda , produtor where fazenda.id_produtor=produtor.id", [])
@@ -169,6 +190,10 @@ let FazendaPage = class FazendaPage {
             .catch(e => {
             alert("error " + JSON.stringify(e));
         });
+        const compareWithFn = (o1, o2) => {
+            return o1 && o2 ? o1.id === o2.id : o1 === o2;
+        };
+        this.compareWith = compareWithFn;
     }
     delete(item) {
         this.databaseObj.executeSql("DELETE FROM " + this.table_name + " WHERE id = " + item.id, [])
@@ -180,7 +205,17 @@ let FazendaPage = class FazendaPage {
             alert("error " + JSON.stringify(e));
         });
     }
-    update() {
+    update(item) {
+        this.id = item.id;
+        this.id_produtor = item.id_produtor;
+        this.nome = item.nome;
+    }
+    // (ngModelChange)="produtorFormSelected($event)" 
+    produtorFormSelected(newform) {
+        let selectedForm = this.produtores.find((f) => {
+            return f.id === newform;
+        });
+        this.id_produtor = selectedForm;
     }
     ngOnInit() {
         this.createDB();

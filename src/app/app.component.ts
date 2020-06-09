@@ -4,9 +4,6 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-//import { DatabaseService } from './database.service';
-
-
 
 @Component({
   selector: 'app-root',
@@ -23,42 +20,67 @@ export class AppComponent {
     {
       title: 'Produtor',
       url: 'produtor',
-      icon: 'list'
+      icon: 'person'
     },
     {
       title: 'Fazendas',
       url: 'fazenda',
-      icon: 'list'
+      icon: 'globe'
     },
     {
       title: 'Categorias',
       url: 'categoria',
-      icon: 'list'
+      icon: 'paw'
     },
     {
       title: 'Raças',
       url: 'raca',
-      icon: 'list'
-    },
-    {
-      title: 'Apartes',
-      url: 'aparte',
-      icon: 'list'
-    },
+      icon: 'trophy'
+    },    
     {
       title: 'Tipo de Manejo',
       url: 'tipomanejo',
       icon: 'list'
     },
     {
+      title: 'Apartes',
+      url: 'aparte',
+      icon: 'trending-up'
+    },
+    {
       title: 'Animais',
       url: 'animal',
-      icon: 'list'
+      icon: 'at'
     },
     {
       title: 'Manejo',
       url: 'manejo',
-      icon: 'list'
+      icon: 'stats'
+    },
+    {
+      title: 'Saldo por Categoria',
+      url: 'saldoporcategoria',
+      icon: 'calculator'
+    },
+    {
+      title: 'Calc por Data',
+      url: 'totalizacao',
+      icon: 'calculator'
+    },
+    {
+      title: 'Calc por Categ/Raça/Aparte',
+      url: 'totalcategoriaraca',
+      icon: 'calculator'
+    },
+    {
+      title: 'Calc por Tipo Manejo/Aparte',
+      url: 'totaltipomanejoaparte',
+      icon: 'calculator'
+    },
+    {
+      title: 'Calc por Categoria',
+      url: 'totalcategoria',
+      icon: 'calculator'
     }
   ];
 

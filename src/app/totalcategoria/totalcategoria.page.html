@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar> 
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text=center>Calc por Categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <!-- <ion-item>
+        <ion-label position="floating">Data Inicial</ion-label>
+        <ion-datetime displayformat="dd/MM/yyyy" name="datainicial_manejo" min="2019" max="2030-01-01" [(ngModel)]="datainicial"></ion-datetime>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label position="floating">Data Final</ion-label>
+        <ion-datetime displayformat="dd/MM/yyyy" name="datafinal_manejo" min="2019" max="2030-01-01" [(ngModel)]="datafinal"></ion-datetime>
+      </ion-item> -->
+<ion-card>
+      <ion-item>
+          <ion-label position="floating">Tipo Manejo</ion-label>
+          <ion-select name="idtipomanejo"  [(ngModel)]="id_tipomanejo" okText="Ok" cancelText="Voltar">
+           <ion-select-option *ngFor="let tipomanejo of tipomanejos" value={{tipomanejo.id}}>{{tipomanejo.nome}}</ion-select-option>
+          </ion-select> 
+        </ion-item>
+    
+      <ion-item>
+          <ion-label position="floating">Produtor</ion-label>
+          <ion-select (blur)="onBlur(getFazendas(id_produtor))" name="idprodutor"  [(ngModel)]="id_produtor" okText="Ok" cancelText="Voltar">
+           <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>
+          </ion-select> 
+        </ion-item>
+    
+        <ion-item>
+            <ion-label position="floating">Fazenda</ion-label>
+            <ion-select name="idfazenda"  [(ngModel)]="id_fazenda" okText="Ok" cancelText="Voltar">
+             <ion-select-option *ngFor="let fazenda of fazendas" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>
+            </ion-select> 
+          </ion-item>
+
+          <ion-button expand="full" (click)="totalCategoria()"> Executar Calculo  </ion-button>
+          <ion-button expand="full" (click)="clearfields()"> Limpar campos  </ion-button>
+</ion-card>
+<ion-card>
+          <ion-item-sliding *ngFor="let totalizacao of totalcategorias">
+          <ion-item>
+              <ion-label text-wrap>
+                  <h3> Categoria      : {{ totalizacao.nomecategoria }}</h3>
+                  <h3> Total          : {{ totalizacao.totalmanejo}} </h3>
+                  <h3> Média          : {{ totalizacao.mediapeso | number}} </h3>     
+          </ion-label>
+          </ion-item>    
+          </ion-item-sliding> 
+</ion-card>
+</ion-content>
+<ion-footer *ngFor="let total of totalpeso">
+  <ion-toolbar>
+    <ion-title>Total : {{total.totalmanejo}}  Média(kg) :  {{total.mediapeso  | number }} </ion-title>
+  </ion-toolbar>
+</ion-footer>

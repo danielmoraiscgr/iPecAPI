@@ -8,15 +8,19 @@
 </ion-header>
 
 <ion-content>
-  
+  <ion-card>
+  <ion-input hidden [(ngModel)]="id"></ion-input>
+
     <ion-item>
-         <ion-label position="fixed">Nome Raça : </ion-label>
+         <ion-label position="floating">Nome Raça</ion-label>
          <ion-input [(ngModel)]="nome"></ion-input>
     </ion-item>
   
-  
-  <ion-button expand="full" (click)="add()"> Salvar </ion-button>
-  
+  </ion-card>
+  <ion-card>
+  <ion-button expand="full" (click)="save()"> Salvar </ion-button>
+  <ion-button expand="full" (click)="clearfields()"> Limpar </ion-button>
+  </ion-card>
   <ion-list>
   
       <ion-list-header>
@@ -24,7 +28,7 @@
                Listagem
           </ion-label>
       </ion-list-header>
-    
+    <ion-card>
       <ion-item-sliding *ngFor="let item of row_data">
         <ion-item>
             <ion-label text-wrap>
@@ -36,6 +40,7 @@
              <ion-item-option color="danger" (click)="delete(item)">Excluir</ion-item-option>         
         </ion-item-options>
       </ion-item-sliding>
+    </ion-card>
   </ion-list>
   </ion-content>
   

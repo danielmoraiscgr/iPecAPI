@@ -1,73 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Storage } from  '@ionic/storage';
-
-export interface Produtor { 
-    id: number;
-    nome: string; 
-    email: string
-}
-
-const PRODUTORES_KEY = 'my-produtores';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import Produtor from '../models/Produtor';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class ProdutorService {
 
-  constructor(private storage: Storage) { }
+  public API = 'https://localhost:44339/api';
+  public PRODUTORES_API = `${this.API}/Produtores`;
 
-  addProdutor(produtor: Produtor): Promise<any> {
-      return this.storage.get(PRODUTORES_KEY).then((produtores: Produtor[]) =>{
-        if (produtores) {
-            produtores.push(produtor);
-            return this.storage.set(PRODUTORES_KEY, produtor);
-        }else {
-             return this.storage.set(PRODUTORES_KEY, [produtor])
-        }
-      });
+  constructor(private http: HttpClient) {}
+
+
+  getAll(): Observable<Array<Produtor>> {
+    return this.http.get<Array<Produtor>>(this.PRODUTORES_API);
   }
 
-  getProdutores(): Promise<Produtor[]> {
-       return this.storage.get(PRODUTORES_KEY);
-
-          
+  get(id: string) {
+    return this.http.get(`${this.PRODUTORES_API}/${id}`);
   }
 
-  updateProdutor(produtor: Produtor): Promise<any> {
-    return this.storage.get(PRODUTORES_KEY).then((produtores: Produtor[]) =>{
-      if (!produtores || produtores.length === 0) {
-        return null;
-      }
-      let newProdutores: Produtor[] = [];
-      for (let i of produtores) {
-        if (i.id === produtor.id) {
-             newProdutores.push(produtor);
-
-        } else {
-            newProdutores.push(i);
-        }
-
-      }
-      return this.storage.set(PRODUTORES_KEY, newProdutores);
-    });
-    
+  save(produtor: Produtor): Observable<Produtor> {
+    let result: Observable<Produtor>;
+    if (produtor.id) {
+      result = this.http.put<Produtor>(
+        `${this.PRODUTORES_API}/${produtor.id}`,
+        produtor
+      );
+    } else {
+      result = this.http.post<Produtor>(this.PRODUTORES_API, produtor);
+    }
+    return result;
   }
 
-  deleteProdutor(id: number): Promise<Produtor> {
-    return this.storage.get(PRODUTORES_KEY).then((produtores: Produtor[]) => {
-      if (!produtores || produtores.length === 0) {
-        return null;
-      }
-      let toKeep: Produtor[] = [];
-      for (let i of produtores){
-         if (i.id !== id) {
-           toKeep.push(i);
-         }
-      } 
-      return this.storage.set(PRODUTORES_KEY, toKeep);
-    });
+  remove(id: number) {
+    return this.http.delete(`${this.PRODUTORES_API}/${id.toString()}`);
   }
-
 
 }

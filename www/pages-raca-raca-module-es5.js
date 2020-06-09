@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Raças</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  \n    <ion-item>\n         <ion-label position=\"fixed\">Nome Raça : </ion-label>\n         <ion-input [(ngModel)]=\"nome\"></ion-input>\n    </ion-item>\n  \n  \n  <ion-button expand=\"full\" (click)=\"add()\"> Salvar </ion-button>\n  \n  <ion-list>\n  \n      <ion-list-header>\n          <ion-label> \n               Listagem\n          </ion-label>\n      </ion-list-header>\n    \n      <ion-item-sliding *ngFor=\"let item of row_data\">\n        <ion-item>\n            <ion-label text-wrap>\n                <h3> Nome Raça  : {{ item.nome }}</h3>\n            </ion-label>\n        </ion-item>    \n        <ion-item-options side=\"end\">\n             <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n             <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n        </ion-item-options>\n      </ion-item-sliding>\n  </ion-list>\n  </ion-content>\n  "
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title text=center>Cadastro de Raças</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card>\n  <ion-input hidden [(ngModel)]=\"id\"></ion-input>\n\n    <ion-item>\n         <ion-label position=\"floating\">Nome Raça</ion-label>\n         <ion-input [(ngModel)]=\"nome\"></ion-input>\n    </ion-item>\n  \n  </ion-card>\n  <ion-card>\n  <ion-button expand=\"full\" (click)=\"save()\"> Salvar </ion-button>\n  <ion-button expand=\"full\" (click)=\"clearfields()\"> Limpar </ion-button>\n  </ion-card>\n  <ion-list>\n  \n      <ion-list-header>\n          <ion-label> \n               Listagem\n          </ion-label>\n      </ion-list-header>\n    <ion-card>\n      <ion-item-sliding *ngFor=\"let item of row_data\">\n        <ion-item>\n            <ion-label text-wrap>\n                <h3> Nome Raça  : {{ item.nome }}</h3>\n            </ion-label>\n        </ion-item>    \n        <ion-item-options side=\"end\">\n             <ion-item-option color=\"secondary\" (click)=\"update(item)\">Alterar</ion-item-option>\n             <ion-item-option color=\"danger\" (click)=\"delete(item)\">Excluir</ion-item-option>         \n        </ion-item-options>\n      </ion-item-sliding>\n    </ion-card>\n  </ion-list>\n  </ion-content>\n  "
 
 /***/ }),
 
@@ -92,6 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 var RacaPage = /** @class */ (function () {
     function RacaPage(sqlite) {
         this.sqlite = sqlite;
+        this.id = 0;
         this.nome = "";
         this.row_data = []; // Table rows
         this.database_name = "ipedDB"; // DB name
@@ -121,21 +122,35 @@ var RacaPage = /** @class */ (function () {
             alert("error " + JSON.stringify(e));
         });
     };
-    RacaPage.prototype.add = function () {
+    RacaPage.prototype.save = function () {
         var _this = this;
         if (!this.nome.length) {
             alert("Entre com o nome da Raça!");
             return;
         }
-        this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome) VALUES (?)', [this.nome])
-            .then(function () {
-            alert('Raça Inserida !');
-            _this.nome = "";
-            _this.getAll();
-        })
-            .catch(function (e) {
-            alert("error " + JSON.stringify(e));
-        });
+        if (this.id != 0) {
+            this.databaseObj.executeSql('UPDATE ' + this.table_name + ' set nome=? where id=?', [this.nome, this.id])
+                .then(function () {
+                alert('Raça Atualizada !');
+                _this.id = 0;
+                _this.nome = "";
+                _this.getAll();
+            })
+                .catch(function (e) {
+                alert("error " + JSON.stringify(e));
+            });
+        }
+        else {
+            this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (nome) VALUES (?)', [this.nome])
+                .then(function () {
+                alert('Raça Inserida !');
+                _this.nome = "";
+                _this.getAll();
+            })
+                .catch(function (e) {
+                alert("error " + JSON.stringify(e));
+            });
+        }
     };
     RacaPage.prototype.getAll = function () {
         var _this = this;
@@ -163,7 +178,13 @@ var RacaPage = /** @class */ (function () {
             alert("error " + JSON.stringify(e));
         });
     };
-    RacaPage.prototype.update = function () {
+    RacaPage.prototype.update = function (item) {
+        this.id = item.id;
+        this.nome = item.nome;
+    };
+    RacaPage.prototype.clearfields = function () {
+        this.id = 0;
+        this.nome = "";
     };
     RacaPage.prototype.ngOnInit = function () {
         this.createDB();
