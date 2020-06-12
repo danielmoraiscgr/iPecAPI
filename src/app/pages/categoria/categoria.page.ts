@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from '../../services/categoria.service';
+import  Categoria from '../../models/Categoria';
 
 @Component({
   selector: 'app-categoria',
@@ -6,23 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./categoria.page.scss'],
 })
 export class CategoriaPage implements OnInit {
-
+  categorias: Array<Categoria>;  
+  
   public id:number=0;
   public nome:string="";
   public sexo:string="";
-  
-  row_data: any = []; // Table rows
-
-
-
-  constructor(){
-        
+ 
+  constructor(private categoriaService: CategoriaService){
   }
   
- 
+getAll() {
+    this.categoriaService.getAll().subscribe(data => {
+      this.categorias = data;
+    });    
+}
 
- 
-save() {
+save(item) {
 
   if (!this.nome.length) {
     alert("Entre com o nome da Categoria !");
@@ -32,17 +33,25 @@ save() {
     alert("Entre com o sexo da Categoria !");
     return;
   }
-}
 
-  getAll() {
-    
+  if (item.id==null) {
+      alert(' Codigo nulo ')
+      return;
   }
-
-delete(item) {
- 
+  this.categoriaService.createItem(item)
+  this.clearfields();
+  this.getAll(); 
 }
 
-update(item) {
+  
+delete(item) {
+  this.categoriaService.remove(item.id);
+  this.getAll();  
+}
+
+edit(item) {
+  this.categoriaService.get(item.id);
+
   this.id = item.id;
   this.nome = item.nome; 
   this.sexo = item.sexo;
@@ -55,7 +64,7 @@ clearfields(){
 }
 
   ngOnInit() {
-    
+    this.getAll();
   }
 
 }

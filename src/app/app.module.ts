@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ProdutorService } from './services/produtor.service';
+import { CategoriaService } from './services/categoria.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import { ProdutorService } from './services/produtor.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ,[ProdutorService]],
+  ,[ProdutorService],[CategoriaService]],
   bootstrap: [AppComponent]
  
 })
