@@ -22,6 +22,7 @@ export class ProdutorPage implements OnInit {
     });
   }
   
+  /*
   save(item){
 
     if (!this.nome.length) {
@@ -57,6 +58,8 @@ export class ProdutorPage implements OnInit {
     this.nome = "";
     this.cpf = "";
   }
+*/
+
 
   ngOnInit() {
      this.getAll();

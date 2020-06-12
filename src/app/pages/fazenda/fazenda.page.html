@@ -14,19 +14,22 @@
 
 <ion-item>
     <ion-label position="floating">Produtor</ion-label>  
-    <ion-select [compareWith]="compareWith" [(ngModel)]="id_produtor"  okText="Ok" cancelText="Voltar">
-     <ion-select-option *ngFor="let produtor of produtores"  value={{produtor.id}} >{{produtor.nome}}</ion-select-option>
+    <ion-select [(ngModel)]="produtorId"  okText="Ok" cancelText="Voltar">
+      <ion-select-option *ngFor="let produtor of produtores"  value={{produtor.id}} >{{produtor.nome}}</ion-select-option>
     </ion-select> 
   </ion-item>
-
 <ion-item>
-<ion-label position="floating">Fazenda</ion-label>
-<ion-input [(ngModel)]="nome"></ion-input>
+    <ion-label position="floating">Nome Fazenda</ion-label>
+    <ion-input [(ngModel)]="nome"></ion-input>
 </ion-item>
-  </ion-card>
+<ion-item>
+  <ion-label position="floating">Area (Ha) </ion-label>
+  <ion-input [(ngModel)]="area"></ion-input>
+</ion-item>
+</ion-card>
 <ion-card>
-<ion-button expand="full" (click)="save()"> Salvar </ion-button>
-<ion-button expand="full" (click)="clearfields()"> Limpar </ion-button>
+      <ion-button expand="full" (click)="save()"> Salvar </ion-button>
+      <ion-button expand="full" (click)="clearfields()"> Limpar </ion-button>
 </ion-card>
 <ion-list>
 
@@ -36,14 +39,14 @@
    </ion-label>
 </ion-list-header>
 <ion-card>
-  <ion-item-sliding *ngFor="let item of row_data">
+  <ion-item-sliding *ngFor="let item of fazendas">
  <ion-item>
      <ion-label text-wrap>
-         <h3> Produtor : {{ item.nomeprodutor }}</h3>
-         <h3> Fazenda  : {{ item.nome }}</h3>
-           <!-- <ion-text color="secondary">
-             <p> Fazenda : {{ item.nome }}</p>
-           </ion-text> -->
+         <h3> Codigo do Produtor : {{ item.produtorId }}</h3>
+         <h3> Código da Fazenda  : {{ item.id }}</h3>         
+         <h3> Nome da Fazenda    : {{ item.nome }}</h3>
+         <h3> Area (Ha)          : {{ item.area }}</h3> 
+
      </ion-label>
  </ion-item>    
  <ion-item-options side="end">

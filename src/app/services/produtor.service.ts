@@ -29,11 +29,12 @@ export class ProdutorService {
      return this.http.get<Array<Produtor>>(this.PRODUTORES_API);
   }
 
+  /*
   get(id: string) {
    // console.log(id); 
     return this.http.get(`${this.PRODUTORES_API}/${id}`);
   }
-
+  
   save(produtor: Produtor): Observable<Produtor> {
     let result: Observable<Produtor>;
     if (produtor.id) {
@@ -53,5 +54,7 @@ export class ProdutorService {
      console.log(url);        
      return this.http.delete(url, httpOptions)    
   }
+*/
+
 
 }

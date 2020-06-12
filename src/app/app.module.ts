@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ProdutorService } from './services/produtor.service';
 import { CategoriaService } from './services/categoria.service';
+import { FazendaService } from './services/fazenda.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,7 @@ import { CategoriaService } from './services/categoria.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ,[ProdutorService],[CategoriaService]],
+  ,[ProdutorService],[CategoriaService],[FazendaService]],
   bootstrap: [AppComponent]
  
 })

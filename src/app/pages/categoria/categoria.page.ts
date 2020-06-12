@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../services/categoria.service';
 import  Categoria from '../../models/Categoria';
 
+
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.page.html',
@@ -13,6 +14,8 @@ export class CategoriaPage implements OnInit {
   public id:number=0;
   public nome:string="";
   public sexo:string="";
+
+  spresp: any;
  
   constructor(private categoriaService: CategoriaService){
   }
@@ -23,7 +26,7 @@ getAll() {
     });    
 }
 
-save(item) {
+save(item) { // falta ainda 
 
   if (!this.nome.length) {
     alert("Entre com o nome da Categoria !");
@@ -38,16 +41,26 @@ save(item) {
       alert(' Codigo nulo ')
       return;
   }
-  this.categoriaService.createItem(item)
+ 
+ 
   this.clearfields();
   this.getAll(); 
 }
 
   
-delete(item) {
-  this.categoriaService.remove(item.id);
-  this.getAll();  
+//delete(item) {
+//  this.categoriaService.deleteCategoria(id, item)
+//  this.getAll();  
+//}
+
+delete(item)  {   // delete(id: any)
+  this.categoriaService
+    .deleteCategoria(item.id, item)
+    .subscribe(resp => {
+      return this.spresp.push(resp);
+    });
 }
+
 
 edit(item) {
   this.categoriaService.get(item.id);

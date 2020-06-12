@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FazendaService } from '../../services/fazenda.service';
+import { ProdutorService } from '../../services/produtor.service';
+import Fazenda from '../../models/Fazenda';
+import Produtor from '../../models/Produtor';
 
 @Component({
   selector: 'app-fazenda',
@@ -6,62 +10,44 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fazenda.page.scss'],
 })
 export class FazendaPage implements OnInit {
+  
+  fazendas: Array<Fazenda>;  
+  produtores: Array<Produtor>;
+
 
   public id:number=0;
-  public id_produtor:number;
+  public produtorId:number;
   public nome:string="";
-  public compareWith:any;
-
-  row_data: any = []; // Table rows
-  produtores: any = []; 
-  readonly database_name:string = "ipedDB"; // DB name
-  readonly table_name:string = "fazenda"; // Table name
-  
-  constructor() {
-    
-   };
+  public area:number=0;
+ 
+  constructor(private fazendaService: FazendaService, private produtorService: ProdutorService) {
+  };
 
  
 clearfields(){
   this.id = 0;
-  this.id_produtor = 0;
+  this.produtorId = 0;
   this.nome = "";
+  this.area = 0 ;
 }
-
-save() {
-  if (this.id_produtor==null) {
-    alert("Entre com o Produtor !");
-    return;
-  }
-  if (!this.nome.length) {
-    alert("Entre com o nome da Fazenda !");
-    return;
-  }
-  }
 
 getAll() {
-   
+  this.fazendaService.getAll().subscribe(data => {
+    this.fazendas = data;
+  });    
 }
 
-
-getProdutores() {
-    
+GetProdutores(){
+  this.produtorService.getAll().subscribe(data => {
+    this.produtores = data;
+  }); 
 }
- 
-delete(item) {
- 
-}
-
-update(item) {
-  this.id = item.id;
-  this.id_produtor = item.id_produtor;
-  this.nome = item.nome; 
-}
-
 
 
   ngOnInit() {
-
+    this.getAll();
+    this.GetProdutores(); 
+    
   }
 
 }
