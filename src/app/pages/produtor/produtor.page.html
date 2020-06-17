@@ -13,7 +13,7 @@
 
   <ion-item>
        <ion-label position="floating">Nome</ion-label>
-       <ion-input [(ngModel)]="nome"></ion-input>
+       <ion-input [(ngModel)]="nomeProdutor"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -33,7 +33,7 @@
     <ion-item-sliding *ngFor="let item of produtores">
       <ion-item>
           <ion-label text-wrap>
-              <h3> Produtor : {{item.id}}-{{ item.nome }}</h3>
+              <h3> Produtor : {{item.id}}-{{ item.nomeProdutor }}</h3>
                 <ion-text color="secondary">
                   <p> CPF : {{ item.cpf }}</p>
                 </ion-text>
@@ -46,4 +46,7 @@
     </ion-item-sliding>
   </ion-card>
 </ion-list>
+<p>
+    id: {{ objProdutor?.id }}
+</p>
 </ion-content>

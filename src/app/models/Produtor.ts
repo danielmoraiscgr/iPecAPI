@@ -1,5 +1,5 @@
 export default class Produtor {
     id: number;
-    nome:string;
+    nomeProdutor:string;
     cpf: string;    
   }

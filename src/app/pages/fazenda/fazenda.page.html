@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title text=center>Cadastro de Fazendas</ion-title>
+    <ion-title text=center>iPec-Cadastro de Fazendas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
 <ion-item>
     <ion-label position="floating">Produtor</ion-label>  
     <ion-select [(ngModel)]="produtorId"  okText="Ok" cancelText="Voltar">
-      <ion-select-option *ngFor="let produtor of produtores"  value={{produtor.id}} >{{produtor.nome}}</ion-select-option>
+      <ion-select-option *ngFor="let produtor of produtores"  value={{produtor.id}} >{{produtor.nomeProdutor}}</ion-select-option>
     </ion-select> 
   </ion-item>
 <ion-item>
@@ -42,9 +42,8 @@
   <ion-item-sliding *ngFor="let item of fazendas">
  <ion-item>
      <ion-label text-wrap>
-         <h3> Codigo do Produtor : {{ item.produtorId }}</h3>
-         <h3> Código da Fazenda  : {{ item.id }}</h3>         
-         <h3> Nome da Fazenda    : {{ item.nome }}</h3>
+         <h3> Nome da Fazenda    : {{ item.nomeFazenda }}</h3>   
+         <h3> Nome do Produtor   : {{ item.produtor.nomeProdutor }}</h3>                  
          <h3> Area (Ha)          : {{ item.area }}</h3> 
 
      </ion-label>

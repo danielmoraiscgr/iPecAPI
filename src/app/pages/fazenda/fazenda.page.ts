@@ -17,7 +17,8 @@ export class FazendaPage implements OnInit {
 
   public id:number=0;
   public produtorId:number;
-  public nome:string="";
+  public nomeProdutor:string="";
+  public nomeFazenda:string="";
   public area:number=0;
  
   constructor(private fazendaService: FazendaService, private produtorService: ProdutorService) {
@@ -27,7 +28,8 @@ export class FazendaPage implements OnInit {
 clearfields(){
   this.id = 0;
   this.produtorId = 0;
-  this.nome = "";
+  this.nomeProdutor = "";
+  this.nomeFazenda = "";
   this.area = 0 ;
 }
 
@@ -47,7 +49,7 @@ GetProdutores(){
   ngOnInit() {
     this.getAll();
     this.GetProdutores(); 
-    
+
   }
 
 }

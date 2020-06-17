@@ -11,58 +11,92 @@ export class ProdutorPage implements OnInit {
   produtores: Array<Produtor>;  
 
   public id:number=0;
-  public nome:string="";
+  public nomeProdutor:string="";
   public cpf:string="";
 
   constructor(private produtorService: ProdutorService){}
+
+  objProdutor: Produtor; 
 
   getAll(){
     this.produtorService.getAll().subscribe(data => {
       this.produtores = data;
     });
   }
-  
-  /*
-  save(item){
-
-    if (!this.nome.length) {
-      alert("Entre com o nome do Produtor !");
-      return;
-    }
-    if (!this.cpf.length) {
-      alert("Entre com o CPF !");
-      return;
-    }
-   
-       this.produtorService.save(item);  
-       this.clearfields();
-       this.getAll(); 
-
-  }
-  
-  update(item) {
-      this.produtorService.get(item.id);
-   
-      this.id = item.id;
-      this.nome = item.nome; 
-      this.cpf = item.cpf;
-  } 
 
   delete(item){ 
-      this.produtorService.remove(item.id);
-      this.getAll(); 
+    this.produtorService.remove(item.id).subscribe(value=> {
+       this.getAll(); 
+     });
+  } 
+    
+  save(){
+      if (!this.nomeProdutor.length) {
+        alert("Entre com o nome do Produtor !");
+        return;
+      }
+      if (!this.cpf.length) {
+        alert("Entre com o CPF !");
+        return;
+      }
+     
+      if (this.id!=0) 
+         {   
+          var oput = new Produtor()
+          oput.id = this.id;
+          oput.nomeProdutor =this.nomeProdutor;
+          oput.cpf = this.cpf;
+      
+          this.produtorService.put(this.id.toString(),oput)
+          .subscribe( value => {
+            this.clearfields();
+            this.getAll(); 
+          });
+        
+         } else
+         {
+         var opost = new Produtor()
+         opost.nomeProdutor =this.nomeProdutor;
+         opost.cpf = this.cpf;
+    
+         this.produtorService.post(opost)
+         .subscribe(
+           data=> {
+              this.objProdutor = data; 
+              this.clearfields();
+              this.getAll(); 
+           }
+         )}
   }
-  
-  clearfields(){
-    this.id = 0;
-    this.nome = "";
-    this.cpf = "";
-  }
-*/
+
+    clearfields(){
+      this.id = 0;
+      this.nomeProdutor = "";
+      this.cpf = "";
+    }
+
+    
+  update(item) {
+    this.id = item.id;
+    this.nomeProdutor = item.nomeProdutor; 
+    this.cpf = item.cpf;
+} 
 
 
   ngOnInit() {
      this.getAll();
+
+     // criar um exemplo de inserção. 
+    /* var opost = new Produtor()
+     opost.nomeProdutor =' Liene Viracao'
+     opost.cpf = '111222333-44';
+
+     this.produtorService.post(opost)
+     .subscribe(
+       data=> {
+          this.objProdutor = data; 
+       }
+     ) */
   }
 
 }
