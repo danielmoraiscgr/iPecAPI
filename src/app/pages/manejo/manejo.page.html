@@ -11,48 +11,62 @@
 <ion-content transparent>
   <ion-card>
     <ion-input hidden [(ngModel)]="id"></ion-input>
+    <ion-input hidden [(ngModel)]="tipomanejoid"></ion-input>
+    <ion-input hidden [(ngModel)]="produtorid"></ion-input>
+    <ion-input hidden [(ngModel)]="fazendaid"></ion-input>
+    <ion-input hidden [(ngModel)]="animalid"></ion-input>
+    <ion-input hidden [(ngModel)]="categoriaid"></ion-input>
+    <ion-input hidden [(ngModel)]="racaid"></ion-input>
+    <ion-input hidden [(ngModel)]="aparteid"></ion-input>
 
   <ion-item>
     <ion-label position="floating">Data Manejo</ion-label>
-    <ion-datetime displayformat="dd/MM/yyyy" name="datamanejo" min="2019" max="2030-01-01" [(ngModel)]="data"></ion-datetime>
+    <ion-datetime displayformat="dd/MM/yyyy" name="datamanejo" min="2019" max="2030-01-01" [(ngModel)]="datamanejo"></ion-datetime>
   </ion-item>
 
   <ion-item>
       <ion-label position="floating">Tipo Manejo</ion-label>
-      <ion-select (blur)="onBlur(getApartes(id_tipomanejo))" [(ngModel)]="id_tipomanejo" okText="Ok" cancelText="Voltar">
+      <ion-select [(ngModel)]="tipomanejoid" okText="Ok" cancelText="Voltar">
        <ion-select-option *ngFor="let tipomanejo of tipomanejos" value={{tipomanejo.id}}>{{tipomanejo.nome}}</ion-select-option>
       </ion-select> 
     </ion-item>
 
   <ion-item>
       <ion-label position="floating">Produtor</ion-label>
-      <ion-select (blur)="onBlur(getFazendas(id_produtor))" [(ngModel)]="id_produtor" okText="Ok" cancelText="Voltar">
-       <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nome}}</ion-select-option>
+      <ion-select (blur)="onBlur(getFazendas(id_produtor))" [(ngModel)]="produtorid" okText="Ok" cancelText="Voltar">
+       <ion-select-option *ngFor="let produtor of produtores" value={{produtor.id}}>{{produtor.nomeProdutor}}</ion-select-option>
       </ion-select> 
     </ion-item>
 
     <ion-item>
         <ion-label position="floating">Fazenda</ion-label>
-        <ion-select  [(ngModel)]="id_fazenda" okText="Ok" cancelText="Voltar">
-         <ion-select-option *ngFor="let fazenda of fazendas" value={{fazenda.id}}>{{fazenda.nome}}</ion-select-option>
+        <ion-select  [(ngModel)]="fazendaid" okText="Ok" cancelText="Voltar">
+         <ion-select-option *ngFor="let fazenda of fazendas" value={{fazenda.id}}>{{fazenda.nomeFazenda}}</ion-select-option>
+        </ion-select> 
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Animal</ion-label>
+        <ion-select  [(ngModel)]="animalid" okText="Ok" cancelText="Voltar">
+         <ion-select-option *ngFor="let animal of animais" value={{animal.id}}>{{animal.numeroAnimal}}</ion-select-option>
         </ion-select> 
       </ion-item>
     
-      <ion-item>
+      <!-- <ion-item>
           <ion-label color="danger"  position="floating">N. Animal : </ion-label>
-          <ion-input [(ngModel)]="identanimal"></ion-input> 
-     </ion-item>
+          <ion-input [(ngModel)]="numeroanimal"></ion-input> 
+     </ion-item> -->
    
       <ion-item>
           <ion-label position="floating">Categoria</ion-label>
-          <ion-select [(ngModel)]="id_categoria" okText="Ok" cancelText="Voltar">
+          <ion-select [(ngModel)]="categoriaid" okText="Ok" cancelText="Voltar">
            <ion-select-option *ngFor="let categoria of categorias" value={{categoria.id}}>{{categoria.nome}}</ion-select-option>
           </ion-select> 
         </ion-item>
       
       <ion-item>
           <ion-label position="floating">Raça</ion-label>
-          <ion-select [(ngModel)]="id_raca" okText="Ok" cancelText="Voltar">
+          <ion-select [(ngModel)]="racaid" okText="Ok" cancelText="Voltar">
            <ion-select-option *ngFor="let raca of racas" value={{raca.id}}>{{raca.nome}}</ion-select-option>
           </ion-select> 
        </ion-item>
@@ -64,7 +78,7 @@
 
         <ion-item>
           <ion-label position="floating">Aparte</ion-label>
-          <ion-select  [(ngModel)]="id_aparte" okText="Ok" cancelText="Voltar">
+          <ion-select  [(ngModel)]="aparteid" okText="Ok" cancelText="Voltar">
            <ion-select-option *ngFor="let aparte of apartes" value={{aparte.id}}>{{aparte.nome}}</ion-select-option>
           </ion-select> 
        </ion-item>
@@ -78,21 +92,21 @@
           Listagem
      </ion-label>
   </ion-list-header>
-  <ion-item-sliding *ngFor="let item of row_data">
+  <ion-item-sliding *ngFor="let item of manejos">
     <ion-card>
     <ion-item>
        <ion-label text-wrap>
            <h3> Data           : {{ item.data | date: 'dd/MM/yyyy'  }} </h3>
-           <h3> Tipo de Manejo : {{ item.nometipomanejo }}</h3>           
-           <h3> Produtor       : {{ item.nomeprodutor }}</h3>
-           <h3> Fazenda        : {{ item.nomefazenda }}</h3>
-           <h3> Ident. Animal  : {{ item.identanimal}} </h3>
-           <h3> Categoria      : {{ item.nomecategoria }}</h3>
-           <h3> Raça           : {{ item.nomeraca }}</h3>
+           <h3> Tipo de Manejo : {{ item.tipoManejo.nome }}</h3>           
+           <h3> Produtor       : {{ item.produtor.nomeProdutor }}</h3>
+           <h3> Fazenda        : {{ item.fazenda.nomeFazenda }}</h3>
+           <h3> Ident. Animal  : {{ item.animal.numeroAnimal}} </h3>
+           <h3> Categoria      : {{ item.categoria.nome }}</h3>
+           <h3> Raça           : {{ item.raca.nome }}</h3>
            <h3> Peso           : {{ item.peso }}</h3>
-           <h3> Aparte         : {{ item.nomeaparte }}</h3>                  
+           <h3> Aparte         : {{ item.aparte.nome }}</h3>                  
        </ion-label>
-   </ion-item>   
+      </ion-item>   
    <ion-item-options side="end">
         <ion-item-option color="secondary" (click)="update(item)">Alterar</ion-item-option>
         <ion-item-option color="danger" (click)="delete(item)">Excluir</ion-item-option>         

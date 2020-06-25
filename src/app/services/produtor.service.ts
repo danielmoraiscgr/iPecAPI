@@ -21,9 +21,6 @@ export class ProdutorService {
   constructor(private http: HttpClient) {
   }
 
-  objProdutor: Produtor; 
-
-
   getAll(): Observable<Array<Produtor>> {
      return this.http.get<Array<Produtor>>(this.PRODUTORES_API);
   }
@@ -32,7 +29,7 @@ export class ProdutorService {
     return this.http.get(`${this.PRODUTORES_API}/${id}`);
   }
  
-  remove(id: number): Observable<{}> {
+  delete(id: number): Observable<{}> {
       const url = `${this.PRODUTORES_API}/${id}`;  
     return this.http.delete(url, httpOptions);   
   }
@@ -41,11 +38,10 @@ export class ProdutorService {
         return this.http.post(this.PRODUTORES_API,opost);
   }
 
-  put(id: number, oput: Produtor): Observable<Produtor> {
+  put(id: string, oput: Produtor): Observable<Produtor> {
        console.log(this.PRODUTORES_API+'/'+id.toString());
-       return this.http.put<Produtor>(this.PRODUTORES_API+'/'+id.toString(),oput);
+       return this.http.put<Produtor>(`${this.PRODUTORES_API}/${id}`,oput);
   }
-
 
   update(produtor: Produtor){
     if (produtor.id) {
@@ -58,18 +54,5 @@ export class ProdutorService {
       
     return result;
   }}
-
-   /* save(produtor: Produtor): Observable<Produtor> {
-   let result: Observable<Produtor>;
-   if (produtor.id) {
-     result = this.http.put<Produtor>(
-       `${this.PRODUTORES_API}/${produtor.id}`,
-       produtor
-     );
-   } else {
-     result = this.http.post<Produtor>(this.PRODUTORES_API, produtor);
-   }
-    return result;
-  } */
 
 }

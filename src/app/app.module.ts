@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProdutorService } from './services/produtor.service';
 import { CategoriaService } from './services/categoria.service';
 import { FazendaService } from './services/fazenda.service';
+import { RacaService } from './services/raca.service';
+import TipoManejo from './models/TipoManejo';
+import { AnimalService } from './services/animal.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +31,8 @@ import { FazendaService } from './services/fazenda.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ,[ProdutorService],[CategoriaService],[FazendaService]],
+  ,[ProdutorService],[CategoriaService],[FazendaService],[RacaService],[TipoManejo],
+   [AnimalService]],
   bootstrap: [AppComponent]
  
 })

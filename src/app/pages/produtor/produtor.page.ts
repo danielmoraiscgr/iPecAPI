@@ -8,6 +8,7 @@ import  Produtor from '../../models/Produtor';
   styleUrls: ['./produtor.page.scss'],
 })
 export class ProdutorPage implements OnInit {
+  
   produtores: Array<Produtor>;  
 
   public id:number=0;
@@ -25,7 +26,7 @@ export class ProdutorPage implements OnInit {
   }
 
   delete(item){ 
-    this.produtorService.remove(item.id).subscribe(value=> {
+    this.produtorService.delete(item.id).subscribe(value=> {
        this.getAll(); 
      });
   } 
@@ -80,23 +81,10 @@ export class ProdutorPage implements OnInit {
     this.id = item.id;
     this.nomeProdutor = item.nomeProdutor; 
     this.cpf = item.cpf;
-} 
-
+  } 
 
   ngOnInit() {
      this.getAll();
-
-     // criar um exemplo de inserção. 
-    /* var opost = new Produtor()
-     opost.nomeProdutor =' Liene Viracao'
-     opost.cpf = '111222333-44';
-
-     this.produtorService.post(opost)
-     .subscribe(
-       data=> {
-          this.objProdutor = data; 
-       }
-     ) */
   }
 
 }

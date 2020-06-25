@@ -15,69 +15,73 @@ export class CategoriaPage implements OnInit {
   public nome:string="";
   public sexo:string="";
 
-  spresp: any;
- 
   constructor(private categoriaService: CategoriaService){
   }
-  
-getAll() {
+
+  getAll(){
     this.categoriaService.getAll().subscribe(data => {
       this.categorias = data;
-    });    
-}
-
-save(item) { // falta ainda 
-
-  if (!this.nome.length) {
-    alert("Entre com o nome da Categoria !");
-    return;
-  }
-  if (!this.sexo.length) {
-    alert("Entre com o sexo da Categoria !");
-    return;
-  }
-
-  if (item.id==null) {
-      alert(' Codigo nulo ')
-      return;
-  }
- 
- 
-  this.clearfields();
-  this.getAll(); 
-}
-
-  
-//delete(item) {
-//  this.categoriaService.deleteCategoria(id, item)
-//  this.getAll();  
-//}
-
-delete(item)  {   // delete(id: any)
-  this.categoriaService
-    .deleteCategoria(item.id, item)
-    .subscribe(resp => {
-      return this.spresp.push(resp);
     });
-}
+  }
 
+  delete(item){ 
+    this.categoriaService.delete(item.id).subscribe(value=> {
+       this.getAll(); 
+     });
+  } 
+    
+  save(){
+      if (!this.nome.length) {
+        alert("Entre com o nome da Categoria !");
+        return;
+      }
+      if (!this.sexo.length) {
+        alert("Entre com o Sexo !");
+        return;
+      }
+     
+      if (this.id!=0) 
+         {   
+          var oput = new Categoria()
+          oput.id = this.id;
+          oput.nome =this.nome;
+          oput.sexo = this.sexo;
+      
+          this.categoriaService.put(this.id.toString(),oput)
+          .subscribe( value => {
+            this.clearfields();
+            this.getAll(); 
+          });
+        
+         } else
+         {
+         var opost = new Categoria()
+         opost.nome =this.nome;
+         opost.sexo = this.sexo;
+    
+         this.categoriaService.post(opost)
+         .subscribe(
+           data=> {
+              this.clearfields();
+              this.getAll(); 
+           }
+         )}
+  }
 
-edit(item) {
-  this.categoriaService.get(item.id);
+    clearfields(){
+      this.id = 0;
+      this.nome = "";
+      this.sexo = "";
+    }
 
-  this.id = item.id;
-  this.nome = item.nome; 
-  this.sexo = item.sexo;
-}
-
-clearfields(){
-  this.id = 0;
-  this.nome = "";
-  this.sexo = "";
-}
+    
+  update(item) {
+    this.id = item.id;
+    this.nome = item.nome; 
+    this.sexo = item.sexo;
+  } 
 
   ngOnInit() {
-    this.getAll();
+     this.getAll();
   }
-
 }

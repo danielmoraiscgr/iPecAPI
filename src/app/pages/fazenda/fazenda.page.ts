@@ -16,15 +16,86 @@ export class FazendaPage implements OnInit {
 
 
   public id:number=0;
-  public produtorId:number;
-  public nomeProdutor:string="";
   public nomeFazenda:string="";
   public area:number=0;
+  public produtorId:number=0;
+  public nomeProdutor:string="";
+  public cpf:string; 
+  public compareWith:any;
  
   constructor(private fazendaService: FazendaService, private produtorService: ProdutorService) {
   };
 
- 
+  objFazenda: Fazenda;
+   
+
+getAll(){
+  this.fazendaService.getAll().subscribe(data => {
+    this.fazendas = data;
+  });
+}
+
+GetProdutores(){
+  this.produtorService.getAll().subscribe(data => {
+    this.produtores = data;
+  });  
+}
+
+delete(item){ 
+  this.fazendaService.delete(item.id).subscribe(value=> {
+     this.getAll(); 
+   });
+} 
+  
+save(){
+   if (!this.produtorId) {
+      alert("Entre com o Produtor !");
+      return;
+    }
+    if (!this.nomeFazenda.length) {
+      alert("Entre com o nome da Fazenda !");
+      return;
+    }
+    if (this.area==0) {
+      alert("Entre com a Area !");
+      return;
+    }
+   
+    if (this.id!=0) 
+       {   
+        var oput = new Fazenda()
+        oput.id = this.id;
+        oput.nomeFazenda = this.nomeFazenda; 
+        oput.area = this.area; 
+        oput.produtorId = this.produtorId;
+        
+        console.log(oput); 
+            
+        this.fazendaService.put(this.id.toString(),oput)
+        .subscribe( value => {
+          this.clearfields();
+          this.getAll(); 
+        });
+      
+       } else
+       {
+
+       var opost = new Fazenda()
+       opost.produtorId   = this.produtorId;
+       opost.nomeProdutor = this.nomeProdutor;
+       opost.nomeFazenda  = this.nomeFazenda; 
+       opost.area         = this.area;
+             
+       this.fazendaService.post(opost)
+       .subscribe(
+         data=> {
+            this.objFazenda = data; 
+            this.clearfields();
+            this.getAll(); 
+         }
+       )}
+}
+
 clearfields(){
   this.id = 0;
   this.produtorId = 0;
@@ -32,24 +103,24 @@ clearfields(){
   this.nomeFazenda = "";
   this.area = 0 ;
 }
+  
+update(item) {  
+  this.id = item.id;
+  this.nomeFazenda = item.nomeFazenda
+  this.area = item.area;
+  this.produtorId = item.produtorId;
+  this.nomeProdutor = item.nomeProdutor;  
 
-getAll() {
-  this.fazendaService.getAll().subscribe(data => {
-    this.fazendas = data;
-  });    
-}
+ const compareWithFn = (o1, o2) => {
+  return o1 && o2 ? o1.produtorId === o2.id : o1 === o2;
+  };
+   this.compareWith = compareWithFn;
 
-GetProdutores(){
-  this.produtorService.getAll().subscribe(data => {
-    this.produtores = data;
-  }); 
-}
-
+} 
 
   ngOnInit() {
     this.getAll();
     this.GetProdutores(); 
-
   }
 
 }

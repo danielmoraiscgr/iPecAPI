@@ -14,13 +14,13 @@
 
 <ion-item>
     <ion-label position="floating">Produtor</ion-label>  
-    <ion-select [(ngModel)]="produtorId"  okText="Ok" cancelText="Voltar">
+    <ion-select [compareWith]="compareWith" [(ngModel)]="produtorId"  okText="Ok" cancelText="Voltar">
       <ion-select-option *ngFor="let produtor of produtores"  value={{produtor.id}} >{{produtor.nomeProdutor}}</ion-select-option>
     </ion-select> 
   </ion-item>
 <ion-item>
     <ion-label position="floating">Nome Fazenda</ion-label>
-    <ion-input [(ngModel)]="nome"></ion-input>
+    <ion-input [(ngModel)]="nomeFazenda"></ion-input>
 </ion-item>
 <ion-item>
   <ion-label position="floating">Area (Ha) </ion-label>
