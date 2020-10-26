@@ -1,16 +1,21 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { title } from 'process';
 
+const rolename = localStorage.getItem('rolename');
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
+
 export class AppComponent {
+ 
+    
   public appPages = [
     {
       title: 'Home',
@@ -56,35 +61,8 @@ export class AppComponent {
       title: 'Manejo',
       url: 'manejo',
       icon: 'stats'
-    },
-    {
-      title: 'Saldo por Categoria',
-      url: 'saldoporcategoria',
-      icon: 'calculator'
-    },
-    {
-      title: 'Calc por Data',
-      url: 'totalizacao',
-      icon: 'calculator'
-    },
-    {
-      title: 'Calc por Categ/Raça/Aparte',
-      url: 'totalcategoriaraca',
-      icon: 'calculator'
-    },
-    {
-      title: 'Calc por Tipo Manejo/Aparte',
-      url: 'totaltipomanejoaparte',
-      icon: 'calculator'
-    },
-    {
-      title: 'Calc por Categoria',
-      url: 'totalcategoria',
-      icon: 'calculator'
     }
   ];
-
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -93,6 +71,7 @@ export class AppComponent {
         this.initializeApp();
       }
     
+      
       initializeApp() {
         this.platform.ready().then(() => {
           this.statusBar.styleDefault();

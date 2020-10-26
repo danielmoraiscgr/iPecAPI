@@ -68,9 +68,9 @@ save(){
         oput.nomeFazenda = this.nomeFazenda; 
         oput.area = this.area; 
         oput.produtorId = this.produtorId;
-        
-        console.log(oput); 
             
+        console.log(oput);
+        
         this.fazendaService.put(this.id.toString(),oput)
         .subscribe( value => {
           this.clearfields();

@@ -3,30 +3,33 @@ import { HttpClient , HttpHeaders, HttpErrorResponse } from '@angular/common/htt
 import { Observable, throwError } from 'rxjs';
 import Categoria from '../models/Categoria';
 
+const token = localStorage.getItem('token');
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'Authorization' : 'Bearer '+token
   })
 };
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
-  public API = 'https://localhost:44339/api';
+  public API = 'https://localhost:44384/api';
   public CATEGORIAS_API = `${this.API}/Categorias`;
 
 
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Array<Categoria>> {
-    return this.http.get<Array<Categoria>>(this.CATEGORIAS_API);
+    return this.http.get<Array<Categoria>>(this.CATEGORIAS_API,httpOptions);
  }
 
  get(id: string) {
-   return this.http.get(`${this.CATEGORIAS_API}/${id}`);
+   return this.http.get(`${this.CATEGORIAS_API}/${id}`,httpOptions);
  }
 
  delete(id: number): Observable<{}> {
@@ -35,12 +38,12 @@ export class CategoriaService {
  }
 
  post(opost:Categoria): Observable<any> {
-       return this.http.post(this.CATEGORIAS_API,opost);
+       return this.http.post(this.CATEGORIAS_API,opost,httpOptions);
  }
 
  put(id: string, oput: Categoria): Observable<Categoria> {
       console.log(this.CATEGORIAS_API+'/'+id.toString());
-      return this.http.put<Categoria>(`${this.CATEGORIAS_API}/${id}`,oput);
+      return this.http.put<Categoria>(`${this.CATEGORIAS_API}/${id}`,oput,httpOptions);
  }
 
  update(categoria: Categoria){

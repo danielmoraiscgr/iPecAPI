@@ -4,9 +4,12 @@ import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Animal from '../models/Animal';
 
 
+const token = localStorage.getItem('token');
+
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'Authorization' : 'Bearer '+token
   })
 };
 
@@ -15,17 +18,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AnimalService {
-  public API = 'https://localhost:44339/api';
+  public API = 'https://localhost:44384/api';
   public ANIMAIS_API = `${this.API}/Animais`;
 
   constructor(private http: HttpClient) { }
   
 getAll(): Observable<Array<Animal>> {
-    return this.http.get<Array<Animal>>(this.ANIMAIS_API);
+    return this.http.get<Array<Animal>>(this.ANIMAIS_API,httpOptions);
  }
 
  get(id: string) {
-   return this.http.get(`${this.ANIMAIS_API}/${id}`);
+   return this.http.get(`${this.ANIMAIS_API}/${id}`,httpOptions);
  }
 
  delete(id: number): Observable<{}> {
@@ -34,12 +37,12 @@ getAll(): Observable<Array<Animal>> {
  }
 
  post(opost:Animal): Observable<any> {
-       return this.http.post(this.ANIMAIS_API,opost);
+       return this.http.post(this.ANIMAIS_API,opost,httpOptions);
  }
 
  put(id: string, oput: Animal): Observable<Animal> {
       console.log(this.ANIMAIS_API+'/'+id.toString());
-      return this.http.put<Animal>(`${this.ANIMAIS_API}/${id}`,oput);
+      return this.http.put<Animal>(`${this.ANIMAIS_API}/${id}`,oput,httpOptions);
  }
 
  update(animal: Animal){

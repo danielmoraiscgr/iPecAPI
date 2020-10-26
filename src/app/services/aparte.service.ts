@@ -3,9 +3,12 @@ import { Observable } from 'rxjs';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Aparte from '../models/Aparte';
 
+const token = localStorage.getItem('token');
+
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'Authorization' : 'Bearer '+token
   })
 };
 
@@ -14,18 +17,18 @@ const httpOptions = {
 })
 export class AparteService {
 
-  public API = 'https://localhost:44339/api';
+  public API = 'https://localhost:44384/api';
   public APARTES_API = `${this.API}/Apartes`;
 
   constructor(private http: HttpClient) { }
 
   
 getAll(): Observable<Array<Aparte>> {
-    return this.http.get<Array<Aparte>>(this.APARTES_API);
+    return this.http.get<Array<Aparte>>(this.APARTES_API,httpOptions);
  }
 
  get(id: string) {
-   return this.http.get(`${this.APARTES_API}/${id}`);
+   return this.http.get(`${this.APARTES_API}/${id}`),httpOptions;
  }
 
  delete(id: number): Observable<{}> {
@@ -34,11 +37,12 @@ getAll(): Observable<Array<Aparte>> {
  }
 
  post(opost:Aparte): Observable<any> {
-       return this.http.post(this.APARTES_API,opost);
+       console.log(opost); 
+       return this.http.post(this.APARTES_API,opost,httpOptions);
  }
 
  put(id: string, oput: Aparte): Observable<Aparte> {
-      return this.http.put<Aparte>(`${this.APARTES_API}/${id}`,oput);
+      return this.http.put<Aparte>(`${this.APARTES_API}/${id}`,oput,httpOptions);
  }
 
  update(aparte: Aparte){

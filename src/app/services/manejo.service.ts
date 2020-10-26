@@ -3,30 +3,31 @@ import { Observable} from 'rxjs';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Manejo from '../models/Manejo';
 
+const token = localStorage.getItem('token');
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'Authorization' : 'Bearer '+token
   })
 };
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManejoService {
-  public API = 'https://localhost:44339/api';
+  public API = 'https://localhost:44384/api';
   public MANEJOS_API = `${this.API}/Manejos`;
 
   constructor(private http: HttpClient) { }
 
   
 getAll(): Observable<Array<Manejo>> {
-  return this.http.get<Array<Manejo>>(this.MANEJOS_API);
+  return this.http.get<Array<Manejo>>(this.MANEJOS_API,httpOptions);
 }
 
 get(id: string) {
- return this.http.get(`${this.MANEJOS_API}/${id}`);
+ return this.http.get(`${this.MANEJOS_API}/${id}`,httpOptions);
 }
 
 delete(id: number): Observable<{}> {
@@ -35,11 +36,12 @@ delete(id: number): Observable<{}> {
 }
 
 post(opost:Manejo): Observable<any> {
-     return this.http.post(this.MANEJOS_API,opost);
+    console.log(opost);
+     return this.http.post(this.MANEJOS_API,opost,httpOptions);
 }
 
 put(id: string, oput: Manejo): Observable<Manejo> {
-    return this.http.put<Manejo>(`${this.MANEJOS_API}/${id}`,oput);
+    return this.http.put<Manejo>(`${this.MANEJOS_API}/${id}`,oput,httpOptions);
 }
 
 update(manejo: Manejo){

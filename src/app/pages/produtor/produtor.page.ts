@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutorService } from '../../services/produtor.service';
 import  Produtor from '../../models/Produtor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-produtor',
@@ -15,11 +16,11 @@ export class ProdutorPage implements OnInit {
   public nomeProdutor:string="";
   public cpf:string="";
 
-  constructor(private produtorService: ProdutorService){}
+  constructor(private produtorService: ProdutorService, private router: Router){}
 
   objProdutor: Produtor; 
 
-  getAll(){
+ getAll(){
     this.produtorService.getAll().subscribe(data => {
       this.produtores = data;
     });
@@ -47,7 +48,7 @@ export class ProdutorPage implements OnInit {
           oput.id = this.id;
           oput.nomeProdutor =this.nomeProdutor;
           oput.cpf = this.cpf;
-      
+                          
           this.produtorService.put(this.id.toString(),oput)
           .subscribe( value => {
             this.clearfields();
@@ -83,7 +84,7 @@ export class ProdutorPage implements OnInit {
     this.cpf = item.cpf;
   } 
 
-  ngOnInit() {
+  ngOnInit() { 
      this.getAll();
   }
 

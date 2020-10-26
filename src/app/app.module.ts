@@ -16,6 +16,9 @@ import { FazendaService } from './services/fazenda.service';
 import { RacaService } from './services/raca.service';
 import TipoManejo from './models/TipoManejo';
 import { AnimalService } from './services/animal.service';
+import { IonicStorageModule } from '@ionic/storage';
+import { AuthGuardService } from './services/authguard.service';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +26,7 @@ import { AnimalService } from './services/animal.service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpModule,
     HttpClientModule
@@ -31,8 +35,8 @@ import { AnimalService } from './services/animal.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ,[ProdutorService],[CategoriaService],[FazendaService],[RacaService],[TipoManejo],
-   [AnimalService]],
+    ,[ProdutorService],[CategoriaService],[FazendaService],[RacaService],[TipoManejo],
+   [AnimalService],[AuthGuardService]],
   bootstrap: [AppComponent]
  
 })
