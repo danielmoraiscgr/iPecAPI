@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import Categoria from '../models/Categoria';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -18,7 +19,7 @@ const httpOptions = {
 })
 export class CategoriaService {
 
-  public API = 'https://localhost:44384/api';
+  public API = api.url; 
   public CATEGORIAS_API = `${this.API}/Categorias`;
 
 

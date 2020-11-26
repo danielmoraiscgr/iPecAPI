@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Fazenda from '../models/Fazenda';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -16,7 +17,7 @@ const httpOptions = {
 
 export class FazendaService {
   
-  public API = 'https://localhost:44384/api';
+  public API = api.url;
   public FAZENDAS_API = `${this.API}/Fazendas`;
 
   constructor(private http: HttpClient) { }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Animal from '../models/Animal';
-
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -18,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AnimalService {
-  public API = 'https://localhost:44384/api';
+  public API = api.url;
   public ANIMAIS_API = `${this.API}/Animais`;
 
   constructor(private http: HttpClient) { }

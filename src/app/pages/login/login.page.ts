@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
-import Usuario from 'src/app/models/Usuario';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -64,8 +63,7 @@ export class LoginPage implements OnInit {
       position: 'middle',
       duration: 2000
     });
-    toast.present();
-     
+    toast.present();     
    });
  }
 

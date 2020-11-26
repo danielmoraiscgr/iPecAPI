@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Manejo from '../models/Manejo';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -16,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ManejoService {
-  public API = 'https://localhost:44384/api';
+  public API = api.url;
   public MANEJOS_API = `${this.API}/Manejos`;
 
   constructor(private http: HttpClient) { }

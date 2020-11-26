@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import Aparte from '../models/Aparte';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -17,7 +18,7 @@ const httpOptions = {
 })
 export class AparteService {
 
-  public API = 'https://localhost:44384/api';
+  public API = api.url;
   public APARTES_API = `${this.API}/Apartes`;
 
   constructor(private http: HttpClient) { }

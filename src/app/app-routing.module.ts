@@ -44,7 +44,8 @@ const routes: Routes = [
     path: 'manejo',
     loadChildren: () => import('./pages/manejo/manejo.module').then(m => m.ManejoPageModule),canActivate: [AuthGuardService]
   },
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'logoff', loadChildren: './pages/logoff/logoff.module#LogoffPageModule' }
  
  /*
   { path: 'produtor', loadChildren: './pages/produtor/produtor.module#ProdutorPageModule' },

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import TipoManejo from '../models/TipoManejo';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -18,7 +19,7 @@ const httpOptions = {
 export class TipomanejoService {
 
   
-  public API = 'https://localhost:44384/api';
+  public API = api.url;
   public TIPOMANEJOS_API = `${this.API}/TipoManejos`;
 
 

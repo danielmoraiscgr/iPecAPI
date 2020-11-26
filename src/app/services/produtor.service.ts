@@ -4,6 +4,7 @@ import { Observable, throwError, ObservedValueOf } from 'rxjs';
 import Produtor from '../models/Produtor';
 import { HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -17,12 +18,11 @@ const httpOptions = {
 @Injectable()
 export class ProdutorService { 
   
-  public API = 'https://localhost:44384/api';
+  public API = api.url;   
   public PRODUTORES_API = `${this.API}/Produtores`;
   
   constructor(private http: HttpClient, private storage: Storage) {
     storage.get('token').then((token) => {
-      console.log('Toke is ', token);
     });
   } 
 

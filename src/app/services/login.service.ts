@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import Usuario from '../models/Usuario';
+import api from '../../api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  public API = 'https://localhost:44384/api/user';
+  public API = api.url+'/user'    
   public LOGIN_API = `${this.API}/login`;
 
   constructor(private http: HttpClient) { }

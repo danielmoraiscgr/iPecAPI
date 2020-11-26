@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import Raca  from '../models/Raca'
+import Raca  from '../models/Raca';
+import api from '../../api';
 
 const token = localStorage.getItem('token');
 
@@ -17,7 +18,7 @@ const httpOptions = {
 })
 
 export class RacaService {
-  public API = 'https://localhost:44384/api';
+  public API = api.url;  
   public RACAS_API = `${this.API}/Racas`;
 
 

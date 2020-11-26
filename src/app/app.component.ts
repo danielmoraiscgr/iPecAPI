@@ -61,6 +61,11 @@ export class AppComponent {
       title: 'Manejo',
       url: 'manejo',
       icon: 'stats'
+    },
+    {
+      title: 'Log off',
+      url: 'logoff',
+      icon: 'exit'
     }
   ];
   constructor(
